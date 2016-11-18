@@ -35,9 +35,9 @@ public class RegistryEntryTest {
     @Test
     public void onValidRelationshipClassShouldReturnRelationshipRepository() throws Exception {
         // GIVEN
-        RegistryEntry<Task> sut = new RegistryEntry(null, new AnnotatedResourceEntryBuilder<>(
+        RegistryEntry<Task> sut = new RegistryEntry(null, new AnnotatedResourceEntryBuilder(
             new RepositoryInstanceBuilder(new SampleJsonServiceLocator(), TaskRepository.class)),
-            Collections.singletonList(new DirectResponseRelationshipEntry<>(new RepositoryInstanceBuilder(new SampleJsonServiceLocator(), TaskToProjectRepository.class))));
+            Collections.singletonList(new DirectResponseRelationshipEntry(new RepositoryInstanceBuilder(new SampleJsonServiceLocator(), TaskToProjectRepository.class))));
 
         // WHEN
         RelationshipRepositoryAdapter<Task, ?, ?, ?> relationshipRepository = sut.getRelationshipRepositoryForClass(Project.class, null);
@@ -51,7 +51,7 @@ public class RegistryEntryTest {
         // GIVEN
         ResourceInformation resourceInformation = new ResourceInformation(Task.class, null, null, null, null);
         RegistryEntry<Task> sut = new RegistryEntry(resourceInformation, null,
-            Collections.singletonList(new DirectResponseRelationshipEntry<>(
+            Collections.singletonList(new DirectResponseRelationshipEntry(
                 new RepositoryInstanceBuilder(new SampleJsonServiceLocator(), TaskToProjectRepository.class))));
 
         // THEN
@@ -64,10 +64,10 @@ public class RegistryEntryTest {
     @Test
     public void onValidParentShouldReturnTrue() throws Exception {
         // GIVEN
-        RegistryEntry<Thing> thing = new RegistryEntry<>(new ResourceInformation(Thing.class, null, null, null, null), null);
-        RegistryEntry<Document> document = new RegistryEntry<>(new ResourceInformation(Document.class, null, null, null, null), null);
+        RegistryEntry<Thing> thing = new RegistryEntry(new ResourceInformation(Thing.class, null, null, null, null), null);
+        RegistryEntry<Document> document = new RegistryEntry(new ResourceInformation(Document.class, null, null, null, null), null);
         document.setParentRegistryEntry(thing);
-        RegistryEntry<Memorandum> memorandum = new RegistryEntry<>(new ResourceInformation(Memorandum.class, null, null, null, null), null);
+        RegistryEntry<Memorandum> memorandum = new RegistryEntry(new ResourceInformation(Memorandum.class, null, null, null, null), null);
         memorandum.setParentRegistryEntry(document);
 
         // WHEN
@@ -80,8 +80,8 @@ public class RegistryEntryTest {
     @Test
     public void onInvalidParentShouldReturnFalse() throws Exception {
         // GIVEN
-        RegistryEntry<Document> document = new RegistryEntry<>(new ResourceInformation(Document.class, null, null, null, null), null);
-        RegistryEntry<Task> task = new RegistryEntry<>(new ResourceInformation(Task.class, null, null, null, null), null);
+        RegistryEntry<Document> document = new RegistryEntry(new ResourceInformation(Document.class, null, null, null, null), null);
+        RegistryEntry<Task> task = new RegistryEntry(new ResourceInformation(Task.class, null, null, null, null), null);
 
         // WHEN
         boolean result = document.isParent(task);

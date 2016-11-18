@@ -11,7 +11,7 @@ public class PathIds {
     public static final String ID_SEPARATOR = ",";
     public static final String ID_SEPARATOR_PATTERN = ",|%2C";
 
-    private final List<String> ids = new LinkedList<>();
+    private final List<String> ids = new LinkedList();
 
     public PathIds(@SuppressWarnings("SameParameterValue") String id) {
         ids.add(id);

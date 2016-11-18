@@ -24,7 +24,7 @@ public class FieldOrderedComparatorTest {
     @Test
     public void onTwoFieldsShouldSortCorrectly() throws Exception {
         // GIVEN
-        Set<ResourceField> fields = new TreeSet<>(new FieldOrderedComparator(new String[]{
+        Set<ResourceField> fields = new TreeSet(new FieldOrderedComparator(new String[]{
             "b", "a"
         }, false));
 
@@ -39,7 +39,7 @@ public class FieldOrderedComparatorTest {
     @Test
     public void onOneFieldShouldSortCorrectly() throws Exception {
         // GIVEN
-        Set<ResourceField> fields = new TreeSet<>(new FieldOrderedComparator(new String[]{
+        Set<ResourceField> fields = new TreeSet(new FieldOrderedComparator(new String[]{
             "b"
         }, false));
 
@@ -54,7 +54,7 @@ public class FieldOrderedComparatorTest {
     @Test
     public void onNoOrderShouldPersistInsertionOrder() throws Exception {
         // GIVEN
-        Set<ResourceField> fields = new TreeSet<>(new FieldOrderedComparator(new String[]{}, false));
+        Set<ResourceField> fields = new TreeSet(new FieldOrderedComparator(new String[]{}, false));
 
         // WHEN
         fields.add(fieldB);
@@ -67,7 +67,7 @@ public class FieldOrderedComparatorTest {
     @Test
     public void onAlphabeticOrderShouldSortCorrectly() throws Exception {
         // GIVEN
-        Set<ResourceField> fields = new TreeSet<>(new FieldOrderedComparator(new String[]{}, true));
+        Set<ResourceField> fields = new TreeSet(new FieldOrderedComparator(new String[]{}, true));
 
         // WHEN
         fields.add(fieldB);

@@ -50,7 +50,7 @@ public class ModuleTest {
 	public void testExceptionMappers(){
 		ExceptionMapperLookup exceptionMapperLookup = moduleRegistry.getExceptionMapperLookup();
 		Set<JsonApiExceptionMapper> exceptionMappers = exceptionMapperLookup.getExceptionMappers();
-		Set<Class<?>> classes = new HashSet<>();
+		Set<Class<?>> classes = new HashSet();
 		for(JsonApiExceptionMapper exceptionMapper : exceptionMappers){
 			classes.add(exceptionMapper.getClass());
 		}
@@ -204,7 +204,7 @@ public class ModuleTest {
 			context.addExceptionMapperLookup(new ExceptionMapperLookup(){
 				@Override
 				public Set<JsonApiExceptionMapper> getExceptionMappers() {
-					Set<JsonApiExceptionMapper> set = new HashSet<>();
+					Set<JsonApiExceptionMapper> set = new HashSet();
 					set.add(new SomeIllegalStateExceptionMapper());
 					return set;
 				}

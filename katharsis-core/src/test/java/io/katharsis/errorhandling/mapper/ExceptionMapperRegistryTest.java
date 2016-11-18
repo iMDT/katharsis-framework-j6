@@ -100,7 +100,7 @@ public class ExceptionMapperRegistryTest {
     }
 
     private static Set<ExceptionMapperType> exceptionMapperTypeSet() {
-        Set<ExceptionMapperType> types = new HashSet<>();
+        Set<ExceptionMapperType> types = new HashSet();
         types.add(new ExceptionMapperType(IllegalStateException.class, new IllegalStateExceptionMapper()));
         types.add(new ExceptionMapperType(SomeIllegalStateException.class, new SomeIllegalStateExceptionMapper()));
         return types;

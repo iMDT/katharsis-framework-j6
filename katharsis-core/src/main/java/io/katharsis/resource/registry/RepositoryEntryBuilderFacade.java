@@ -32,10 +32,10 @@ public class RepositoryEntryBuilderFacade implements RepositoryEntryBuilder {
             resourceEntry = directRepositoryEntryBuilder.buildResourceRepository(lookup, resourceClass);
         }
         if (resourceEntry == null) {
-            RepositoryInstanceBuilder repositoryInstanceBuilder = new RepositoryInstanceBuilder<>(new JsonServiceLocator() {
+            RepositoryInstanceBuilder repositoryInstanceBuilder = new RepositoryInstanceBuilder(new JsonServiceLocator() {
                 @Override
                 public <T> T getInstance(Class<T> clazz) {
-                    return (T) new NotFoundRepository<>(resourceClass);
+                    return (T) new NotFoundRepository(resourceClass);
                 }
             }, NotFoundRepository.class);
             resourceEntry = new DirectResponseResourceEntry(repositoryInstanceBuilder);
@@ -48,7 +48,7 @@ public class RepositoryEntryBuilderFacade implements RepositoryEntryBuilder {
     public List<ResponseRelationshipEntry<?, ?>> buildRelationshipRepositories(ResourceLookup lookup, Class<?> resourceClass) {
         List<ResponseRelationshipEntry<?, ?>> annotationEntries = annotatedRepositoryEntryBuilder
             .buildRelationshipRepositories(lookup, resourceClass);
-        List<ResponseRelationshipEntry<?, ?>> targetEntries = new LinkedList<>(annotationEntries);
+        List<ResponseRelationshipEntry<?, ?>> targetEntries = new LinkedList(annotationEntries);
         List<ResponseRelationshipEntry<?, ?>> directEntries = directRepositoryEntryBuilder
             .buildRelationshipRepositories(lookup, resourceClass);
 

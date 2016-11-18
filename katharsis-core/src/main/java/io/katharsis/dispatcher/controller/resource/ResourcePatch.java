@@ -119,7 +119,7 @@ public class ResourcePatch extends ResourceUpsert {
 
                 // source may lack the whole entry yet
                 if (!source.containsKey(fieldName)) {
-                    source.put(fieldName, new HashMap<>());
+                    source.put(fieldName, new HashMap());
                 }
 
                 Object sourceMap = source.get(fieldName);

@@ -16,7 +16,7 @@ public class InMemoryEvaluatorTest {
 
 	@Before
 	public void setup() {
-		tasks = new ArrayList<>();
+		tasks = new ArrayList();
 		for (long i = 0; i < 5; i++) {
 			Task task = new Task();
 			task.setId(i);

@@ -125,7 +125,7 @@ public class RequestBodyTest {
     }
 
     private List<String> getList(Iterator<String> iter) {
-        List<String> copy = new LinkedList<>();
+        List<String> copy = new LinkedList();
         while (iter.hasNext())
             copy.add(iter.next());
         return copy;

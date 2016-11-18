@@ -27,7 +27,9 @@ public class AnnotatedClassBuilder {
                 method.getParameterTypes().length == 3) {
                 try {
                     return buildAnnotatedClass(method, declaringClass, serializationConfig);
-                } catch (InvocationTargetException | IllegalAccessException e) {
+                } catch (InvocationTargetException e) {
+                    throw new InternalException("Exception while building " + AnnotatedClass.class.getCanonicalName(), e);
+                } catch (IllegalAccessException e) {
                     throw new InternalException("Exception while building " + AnnotatedClass.class.getCanonicalName(), e);
                 }
             }

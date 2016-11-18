@@ -13,7 +13,7 @@ public class UserRepository implements ResourceRepository<User, Long> {
 
     private static final QueryParams REQUEST_PARAMS = new QueryParams();
 
-    private static final ConcurrentHashMap<Long, User> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Long, User> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap();
 
     @Override
     public <S extends User> S save(S entity) {
@@ -41,7 +41,7 @@ public class UserRepository implements ResourceRepository<User, Long> {
 
     @Override
     public Iterable<User> findAll(Iterable<Long> ids, QueryParams queryParams) {
-        List<User> values = new LinkedList<>();
+        List<User> values = new LinkedList();
         for (User value : THREAD_LOCAL_REPOSITORY.values()) {
             if (contains(value, ids)) {
                 values.add(value);

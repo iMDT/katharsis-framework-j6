@@ -112,7 +112,13 @@ public class ContainerSerializer extends JsonSerializer<Container> {
         ResourceInformation resourceInformation = entry.getResourceInformation();
         try {
             writeId(gen, data, resourceInformation);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (IllegalAccessException e) {
+            throw new JsonSerializationException(
+                    "Error writing id field: " + resourceInformation.getIdField().getUnderlyingName());
+        } catch ( InvocationTargetException  e) {
+            throw new JsonSerializationException(
+                    "Error writing id field: " + resourceInformation.getIdField().getUnderlyingName());
+        } catch (NoSuchMethodException e) {
             throw new JsonSerializationException(
                     "Error writing id field: " + resourceInformation.getIdField().getUnderlyingName());
         }
@@ -133,7 +139,7 @@ public class ContainerSerializer extends JsonSerializer<Container> {
 
     private Set<ResourceField> getRelationshipFields(String resourceType, ResourceInformation resourceInformation,
                                                      TypedParams<IncludedFieldsParams> includedFields) {
-        Set<ResourceField> relationshipFields = new HashSet<>();
+        Set<ResourceField> relationshipFields = new HashSet();
         Optional<Set<String>> fields = includedFields(resourceType, includedFields);
         if (fields.isPresent()) {
             for (ResourceField resourceField : resourceInformation.getRelationshipFields()) {

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ControllerRegistry {
 
-    private final List<BaseController> controllers = new LinkedList<>();
+    private final List<BaseController> controllers = new LinkedList();
 
     public ControllerRegistry(List<BaseController> baseControllers) {
         if (baseControllers != null) {

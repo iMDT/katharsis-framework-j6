@@ -69,7 +69,7 @@ public class DefaultQueryParamsParser implements QueryParamsParser {
      * @return Filtered query params
      */
     private static Map<String, Set<String>> filterQueryParamsByKey(Map<String, Set<String>> queryParams, String queryKey) {
-        Map<String, Set<String>> filteredQueryParams = new HashMap<>();
+        Map<String, Set<String>> filteredQueryParams = new HashMap();
 
         for (Map.Entry<String, Set<String>> entry : queryParams.entrySet()) {
             if (entry.getKey().startsWith(queryKey)) {

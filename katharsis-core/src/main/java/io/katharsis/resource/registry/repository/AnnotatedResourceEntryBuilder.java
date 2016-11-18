@@ -15,7 +15,7 @@ public class AnnotatedResourceEntryBuilder<T, ID extends Serializable> implement
     }
 
     public AnnotatedResourceRepositoryAdapter build(RepositoryMethodParameterProvider parameterProvider) {
-        return new AnnotatedResourceRepositoryAdapter<>(repositoryInstanceBuilder.buildRepository(),
+        return new AnnotatedResourceRepositoryAdapter(repositoryInstanceBuilder.buildRepository(),
             new ParametersFactory(parameterProvider));
     }
 

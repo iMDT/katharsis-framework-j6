@@ -15,7 +15,7 @@ import io.katharsis.utils.PropertyUtils;
 public class InMemoryEvaluator {
 
 	public <T> List<T> eval(List<T> resources, QuerySpec querySpec) {
-		List<T> results = new ArrayList<>();
+		List<T> results = new ArrayList();
 		results.addAll(resources);
 
 		// filter
@@ -35,7 +35,7 @@ public class InMemoryEvaluator {
 
 	private <T> void applySorting(List<T> results, List<SortSpec> sortSpec) {
 		if (!sortSpec.isEmpty()) {
-			Collections.sort(results, new SortSpecComparator<>(sortSpec));
+			Collections.sort(results, new SortSpecComparator(sortSpec));
 		}
 	}
 

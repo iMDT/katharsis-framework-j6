@@ -37,7 +37,7 @@ public class TypeParser {
      * @return {@link Iterable} of parsed values
      */
     public <T extends Serializable> Iterable<T> parse(Iterable<String> inputs, Class<T> clazz) {
-        List<T> parsedValues = new LinkedList<>();
+        List<T> parsedValues = new LinkedList();
         for (String input : inputs) {
             parsedValues.add(parse(input, clazz));
         }
@@ -55,9 +55,17 @@ public class TypeParser {
     public <T extends Serializable> T parse(String input, Class<T> clazz) {
         try {
             return parseInput(input, clazz);
-        } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException |
-                NumberFormatException | ParserException
-                e) {
+        } catch (InvocationTargetException e) {
+            throw new ParserException(e.getMessage());
+        } catch (InstantiationException e) {
+            throw new ParserException(e.getMessage());
+        } catch (IllegalAccessException e) {
+            throw new ParserException(e.getMessage());
+        } catch (NumberFormatException e) {
+            throw new ParserException(e.getMessage());
+        } catch (ParserException e) {
+            throw new ParserException(e.getMessage());
+        } catch ( NoSuchMethodException e) {
             throw new ParserException(e.getMessage());
         }
     }

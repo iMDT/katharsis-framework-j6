@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class FilterParams {
-    private Map<String, Set<String>> params = new HashMap<>();
+    private Map<String, Set<String>> params = new HashMap();
 
     public FilterParams(Map<String, Set<String>> params) {
         this.params = params;

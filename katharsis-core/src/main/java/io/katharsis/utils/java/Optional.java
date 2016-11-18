@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class Optional<T> {
-    private static final Optional<?> EMPTY = new Optional<>(null);
+    private static final Optional<?> EMPTY = new Optional(null);
 
     private final T value;
 
@@ -30,7 +30,7 @@ public class Optional<T> {
 
     public static <T> Optional<T> of(T value) {
         Objects.requireNonNull(value);
-        return new Optional<>(value);
+        return new Optional(value);
     }
 
     public static <T> Optional<T> ofNullable(T value) {

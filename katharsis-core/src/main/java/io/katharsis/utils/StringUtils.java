@@ -7,7 +7,7 @@ import java.util.List;
 public class StringUtils {
 
     public static String join(String delimiter, Iterable<String> stringsIterable) {
-        List<String> strings = new LinkedList<>();
+        List<String> strings = new LinkedList();
         Iterator<String> iterator = stringsIterable.iterator();
         while (iterator.hasNext()) {
             strings.add(iterator.next());

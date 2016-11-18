@@ -18,7 +18,7 @@ public class ProjectEager {
 
     @JsonApiToMany
     @JsonApiIncludeByDefault
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList();
 
     public List<Task> getTasks() {
         return tasks;

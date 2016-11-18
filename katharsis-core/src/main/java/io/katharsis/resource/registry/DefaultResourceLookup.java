@@ -40,7 +40,7 @@ public class DefaultResourceLookup implements ResourceLookup {
 		Set<Class<? extends ResourceRepository>> resourceRepositories = reflections.getSubTypesOf(ResourceRepository.class);
 		Set<Class<? extends RelationshipRepository>> relationshipRepositories = reflections.getSubTypesOf(RelationshipRepository.class);
 		
-		Set<Class<?>> result = new HashSet<>();
+		Set<Class<?>> result = new HashSet();
 		result.addAll(annotatedResourceRepositories);
 		result.addAll(annotatedRelationshipRepositories);
 		result.addAll(resourceRepositories);

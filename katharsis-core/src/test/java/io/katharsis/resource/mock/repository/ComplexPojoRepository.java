@@ -10,7 +10,7 @@ import io.katharsis.resource.mock.models.ContainedPojo;
 
 public class ComplexPojoRepository implements ResourceRepository<ComplexPojo, Long> {
 
-    private static final ConcurrentHashMap<Long, ComplexPojo> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Long, ComplexPojo> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap();
 
     @Override
     public ComplexPojo findOne(Long aLong, QueryParams queryParams) {

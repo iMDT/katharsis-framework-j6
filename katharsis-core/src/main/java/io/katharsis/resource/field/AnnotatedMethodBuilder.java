@@ -22,7 +22,11 @@ public class AnnotatedMethodBuilder {
         for(Constructor<?> constructor : AnnotatedMethod.class.getConstructors()) {
             try {
                 return buildAnnotatedField(annotatedClass, method, annotationMap, paramAnnotations, constructor);
-            } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            } catch (IllegalAccessException e) {
+                throw new InternalException("Exception while building " + AnnotatedMethod.class.getCanonicalName(), e);
+            } catch (InstantiationException e) {
+                throw new InternalException("Exception while building " + AnnotatedMethod.class.getCanonicalName(), e);
+            } catch (InvocationTargetException e) {
                 throw new InternalException("Exception while building " + AnnotatedMethod.class.getCanonicalName(), e);
             }
         }

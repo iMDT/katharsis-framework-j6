@@ -108,7 +108,7 @@ public class DefaultQuerySpecConverter implements QuerySpecConverter {
 		List<String> attributePath = splitPath(attributePathString);
 
 		Class<?> attributeType = PropertyUtils.getPropertyClass(querySpec.getResourceClass(), attributePath);
-		Set<Object> typedValues = new HashSet<>();
+		Set<Object> typedValues = new HashSet();
 		for (String stringValue : stringValues) {
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			Object value = typeParser.parse(stringValue, (Class) attributeType);

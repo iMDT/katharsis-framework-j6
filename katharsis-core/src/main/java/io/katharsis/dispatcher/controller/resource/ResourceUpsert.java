@@ -95,7 +95,7 @@ public abstract class ResourceUpsert extends BaseController {
             .getResourceInformation()
             .getIdField()
             .getType();
-        List<Serializable> castedRelationIds = new LinkedList<>();
+        List<Serializable> castedRelationIds = new LinkedList();
 
         for (LinkageData linkageData : property.getValue()) {
             Serializable castedRelationshipId = typeParser.parse(linkageData.getId(), relationshipIdClass);
@@ -176,7 +176,11 @@ public abstract class ResourceUpsert extends BaseController {
             return registryEntry.getResourceInformation()
                 .getResourceClass()
                 .newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException e) {
+            throw new ResourceException(
+                String.format("couldn't create a new instance of %s", registryEntry.getResourceInformation()
+                    .getResourceClass()));
+        } catch (IllegalAccessException e) {
             throw new ResourceException(
                 String.format("couldn't create a new instance of %s", registryEntry.getResourceInformation()
                     .getResourceClass()));
@@ -216,7 +220,7 @@ public abstract class ResourceUpsert extends BaseController {
             .getIdField()
             .getType();
 
-        List relationships = new LinkedList<>();
+        List relationships = new LinkedList();
         for (LinkageData linkageData : property.getValue()) {
             Serializable castedRelationshipId = typeParser.parse(linkageData.getId(), idFieldType);
             Object relationObject = entry.getResourceRepository(parameterProvider)

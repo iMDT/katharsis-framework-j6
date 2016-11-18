@@ -18,7 +18,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javaVersion>1.7</javaVersion>
+        <javaVersion>1.6</javaVersion>
 
         <reflections.version>0.9.9</reflections.version>
         <typetools.version>0.4.4</typetools.version>
@@ -229,11 +229,11 @@
             <modules>
                 <module>katharsis-parent</module>
                 <module>katharsis-core</module>
-                <module>katharsis-rs</module>
+                <!--<module>katharsis-rs</module>-->
                 <module>katharsis-servlet</module>
-                <module>katharsis-spring</module>
-                <module>katharsis-client</module>
-                <module>katharsis-examples</module>
+                <!--<module>katharsis-spring</module>-->
+                <!--<module>katharsis-client</module>-->
+                <!--<module>katharsis-examples</module>-->
             </modules>
         </profile>
         <profile>

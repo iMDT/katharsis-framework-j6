@@ -19,13 +19,13 @@ public class ResourceRegistry {
 
     public ResourceRegistry(ServiceUrlProvider serviceUrlProvider) {
         this.serviceUrlProvider = serviceUrlProvider;
-        this.resources = new HashMap<>();
+        this.resources = new HashMap();
     }
 
 
     public ResourceRegistry(Map<Class, RegistryEntry> resources, ServiceUrlProvider serviceUrlProvider) {
         this.serviceUrlProvider = serviceUrlProvider;
-        this.resources = new HashMap<>(resources); // copying is slower but completely thread safe
+        this.resources = new HashMap(resources); // copying is slower but completely thread safe
     }
 
     /**

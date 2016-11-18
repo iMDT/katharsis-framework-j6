@@ -14,7 +14,7 @@ public class RepositoryInstanceBuilderTest {
     public void onExistingInstanceShouldReturnValue() throws Exception {
         // GIVEN
         RepositoryInstanceBuilder<TaskRepository> sut =
-            new RepositoryInstanceBuilder<>(new SampleJsonServiceLocator(), TaskRepository.class);
+            new RepositoryInstanceBuilder(new SampleJsonServiceLocator(), TaskRepository.class);
 
         // WHEN
         TaskRepository result = sut.buildRepository();
@@ -28,7 +28,7 @@ public class RepositoryInstanceBuilderTest {
     public void onNullInstanceShouldThrowException() throws Exception {
         // GIVEN
         RepositoryInstanceBuilder<TaskRepository> sut =
-            new RepositoryInstanceBuilder<>(new JsonServiceLocator() {
+            new RepositoryInstanceBuilder(new JsonServiceLocator() {
                 @Override
                 public <T> T getInstance(Class<T> clazz) {
                     return null;

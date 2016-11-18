@@ -38,7 +38,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithoutSetRelationShouldThrowException() throws Exception {
         // GIVEN
         RelationshipRepositoryWithoutAnyMethods repo = new RelationshipRepositoryWithoutAnyMethods();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.setRelation(new Task(), 1L, "project", queryParams);
@@ -49,7 +49,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
         // GIVEN
 
         RelationshipRepositoryWithEmptySetRelation repo = new RelationshipRepositoryWithEmptySetRelation();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.setRelation(new Task(), 1L, "project", queryParams);
@@ -59,7 +59,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithSetRelationShouldSetValue() throws Exception {
         // GIVEN
         RelationshipRepositoryWithSetRelation repo = spy(RelationshipRepositoryWithSetRelation.class);
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
         Task task = new Task();
 
         // WHEN
@@ -73,7 +73,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithoutSetRelationsShouldThrowException() throws Exception {
         // GIVEN
         RelationshipRepositoryWithoutAnyMethods repo = new RelationshipRepositoryWithoutAnyMethods();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.setRelations(new Task(), Collections.singleton(1L), "project", queryParams);
@@ -84,7 +84,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
         // GIVEN
 
         RelationshipRepositoryWithEmptySetRelations repo = new RelationshipRepositoryWithEmptySetRelations();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.setRelations(new Task(), Collections.singleton(1L), "project", queryParams);
@@ -94,7 +94,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithSetRelationsShouldSetValues() throws Exception {
         // GIVEN
         RelationshipRepositoryWithSetRelations repo = spy(RelationshipRepositoryWithSetRelations.class);
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
         Task task = new Task();
 
         // WHEN
@@ -108,7 +108,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithoutAddRelationsShouldThrowException() throws Exception {
         // GIVEN
         RelationshipRepositoryWithoutAnyMethods repo = new RelationshipRepositoryWithoutAnyMethods();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.addRelations(new Task(), Collections.singleton(1L), "project", queryParams);
@@ -119,7 +119,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
         // GIVEN
 
         RelationshipRepositoryWithEmptyAddRelations repo = new RelationshipRepositoryWithEmptyAddRelations();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.addRelations(new Task(), Collections.singleton(1L), "project", queryParams);
@@ -129,7 +129,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithAddRelationsShouldAddValue() throws Exception {
         // GIVEN
         RelationshipRepositoryWithAddRelations repo = spy(RelationshipRepositoryWithAddRelations.class);
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
         Task task = new Task();
 
         // WHEN
@@ -143,7 +143,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithoutRemoveRelationsShouldThrowException() throws Exception {
         // GIVEN
         RelationshipRepositoryWithoutAnyMethods repo = new RelationshipRepositoryWithoutAnyMethods();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.removeRelations(new Task(), Collections.singleton(1L), "project", queryParams);
@@ -154,7 +154,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
         // GIVEN
 
         RelationshipRepositoryWithEmptyRemoveRelations repo = new RelationshipRepositoryWithEmptyRemoveRelations();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.removeRelations(new Task(), Collections.singleton(1L), "project", queryParams);
@@ -164,7 +164,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithRemoveRelationsShouldAddValue() throws Exception {
         // GIVEN
         RelationshipRepositoryWithRemoveRelations repo = spy(RelationshipRepositoryWithRemoveRelations.class);
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
         Task task = new Task();
 
         // WHEN
@@ -178,7 +178,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithoutFindOneTargetShouldThrowException() throws Exception {
         // GIVEN
         RelationshipRepositoryWithoutAnyMethods repo = new RelationshipRepositoryWithoutAnyMethods();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.findOneTarget(1L, "project", queryParams);
@@ -189,7 +189,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
         // GIVEN
 
         RelationshipRepositoryWithEmptyFindOneTargetRelations repo = new RelationshipRepositoryWithEmptyFindOneTargetRelations();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.findOneTarget(1L, "project", queryParams);
@@ -199,7 +199,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithFindOneTargetShouldAddValue() throws Exception {
         // GIVEN
         RelationshipRepositoryWithFindOneTargetRelations repo = spy(RelationshipRepositoryWithFindOneTargetRelations.class);
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         Object project = sut.findOneTarget(1L, "project", queryParams);
@@ -214,7 +214,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithoutFindManyTargetShouldThrowException() throws Exception {
         // GIVEN
         RelationshipRepositoryWithoutAnyMethods repo = new RelationshipRepositoryWithoutAnyMethods();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.findManyTargets(1L, "project", queryParams);
@@ -225,7 +225,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
         // GIVEN
 
         RelationshipRepositoryWithEmptyFindManyTargetsRelations repo = new RelationshipRepositoryWithEmptyFindManyTargetsRelations();
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.findManyTargets(1L, "project", queryParams);
@@ -235,7 +235,7 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
     public void onClassWithFindManyTargetShouldAddValue() throws Exception {
         // GIVEN
         RelationshipRepositoryWithFindManyTargetsRelations repo = spy(RelationshipRepositoryWithFindManyTargetsRelations.class);
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         Object result = sut.findManyTargets(1L, "project", queryParams);

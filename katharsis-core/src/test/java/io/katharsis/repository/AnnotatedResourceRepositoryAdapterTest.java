@@ -37,7 +37,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithoutFindOneShouldThrowException() throws Exception {
         // GIVEN
         ResourceRepositoryWithoutAnyMethods repo = new ResourceRepositoryWithoutAnyMethods();
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.findOne(1L, queryParams);
@@ -47,7 +47,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithInvalidFindOneShouldThrowException() throws Exception {
         // GIVEN
         ResourceRepositoryWithEmptyFindOne repo = new ResourceRepositoryWithEmptyFindOne();
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.findOne(1L, queryParams);
@@ -57,7 +57,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithFindOneShouldReturnValue() throws Exception {
         // GIVEN
         ResourceRepositoryWithFindOne repo = spy(ResourceRepositoryWithFindOne.class);
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         Object result = sut.findOne(1L, queryParams);
@@ -72,7 +72,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithoutFindAllShouldThrowException() throws Exception {
         // GIVEN
         ResourceRepositoryWithoutAnyMethods repo = new ResourceRepositoryWithoutAnyMethods();
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.findAll(queryParams);
@@ -82,7 +82,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithFindAllShouldReturnValue() throws Exception {
         // GIVEN
         ResourceRepositoryWithFindAll repo = spy(ResourceRepositoryWithFindAll.class);
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         Object result = sut.findAll(queryParams);
@@ -98,7 +98,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithoutFindAllWithIdsShouldThrowException() throws Exception {
         // GIVEN
         ResourceRepositoryWithoutAnyMethods repo = new ResourceRepositoryWithoutAnyMethods();
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.findAll(Collections.singletonList(1L), queryParams);
@@ -108,7 +108,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithInvalidFindAllWithIdsShouldThrowException() throws Exception {
         // GIVEN
         ResourceRepositoryWithEmptyFindAllWithIds repo = new ResourceRepositoryWithEmptyFindAllWithIds();
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.findAll(Collections.singletonList(1L), queryParams);
@@ -118,7 +118,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithFindAllWithIdsShouldReturnValue() throws Exception {
         // GIVEN
         ResourceRepositoryWithFindAllWithIds repo = spy(ResourceRepositoryWithFindAllWithIds.class);
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
         List<Long> ids = Collections.singletonList(1L);
 
         // WHEN
@@ -134,7 +134,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithoutSaveShouldThrowException() throws Exception {
         // GIVEN
         ResourceRepositoryWithoutAnyMethods repo = new ResourceRepositoryWithoutAnyMethods();
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.save(new Project());
@@ -144,7 +144,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithInvalidSaveShouldThrowException() throws Exception {
         // GIVEN
         ResourceRepositoryWithEmptySave repo = new ResourceRepositoryWithEmptySave();
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.save(new Project());
@@ -154,7 +154,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithSaveShouldReturnValue() throws Exception {
         // GIVEN
         ResourceRepositoryWithSave repo = spy(ResourceRepositoryWithSave.class);
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         Project entity = new Project();
@@ -171,7 +171,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
         // GIVEN
         ResourceRepositoryWithoutAnyMethods repo = new ResourceRepositoryWithoutAnyMethods();
         
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.delete(1L, queryParams);
@@ -181,7 +181,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithInvalidDeleteShouldThrowException() throws Exception {
         // GIVEN
         ResourceRepositoryWithEmptyDelete repo = new ResourceRepositoryWithEmptyDelete();
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.delete(1L, queryParams);
@@ -191,7 +191,7 @@ public class AnnotatedResourceRepositoryAdapterTest {
     public void onClassWithDeleteShouldInvokeMethod() throws Exception {
         // GIVEN
         ResourceRepositoryWithDelete repo = spy(ResourceRepositoryWithDelete.class);
-        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter<>(repo, parameterProvider);
+        AnnotatedResourceRepositoryAdapter<Project, Long> sut = new AnnotatedResourceRepositoryAdapter(repo, parameterProvider);
 
         // WHEN
         sut.delete(1L, queryParams);

@@ -39,7 +39,7 @@ public class AnnotatedRepositoryEntryBuilder implements RepositoryEntryBuilder {
         if (repositoryClasses.size() == 0) {
             return null;
         } else {
-            return new AnnotatedResourceEntryBuilder<>(new RepositoryInstanceBuilder<>(jsonServiceLocator, repositoryClasses.get(0)));
+            return new AnnotatedResourceEntryBuilder(new RepositoryInstanceBuilder(jsonServiceLocator, repositoryClasses.get(0)));
         }
     }
 
@@ -54,16 +54,16 @@ public class AnnotatedRepositoryEntryBuilder implements RepositoryEntryBuilder {
         };
 
         List<Class<?>> repositoryClasses = findRepositoryClasses(lookup, classPredicate, JsonApiRelationshipRepository.class);
-        List<ResponseRelationshipEntry<?, ?>> relationshipEntries = new ArrayList<>(repositoryClasses.size());
+        List<ResponseRelationshipEntry<?, ?>> relationshipEntries = new ArrayList(repositoryClasses.size());
         for (Class<?> repositoryClass : repositoryClasses) {
-            relationshipEntries.add(new AnnotatedRelationshipEntryBuilder<>(new RepositoryInstanceBuilder<>(jsonServiceLocator, repositoryClass)));
+            relationshipEntries.add(new AnnotatedRelationshipEntryBuilder(new RepositoryInstanceBuilder(jsonServiceLocator, repositoryClass)));
         }
 
         return relationshipEntries;
     }
 
     private List<Class<?>> findRepositoryClasses(ResourceLookup lookup, Predicate1<Class<?>> classPredicate, Class<? extends Annotation> annotation) {
-        List<Class<?>> repositoryClasses = new LinkedList<>();
+        List<Class<?>> repositoryClasses = new LinkedList();
 
         for (Class<?> clazz : lookup.getResourceRepositoryClasses()) {
             if (clazz.isAnnotationPresent(annotation) && classPredicate.test(clazz)) {

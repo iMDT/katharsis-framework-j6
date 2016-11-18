@@ -15,13 +15,13 @@ import java.util.concurrent.ConcurrentMap;
 @JsonApiRelationshipRepository(source = User.class, target = Project.class)
 public class UserToProjectRepository {
 
-    private static final ConcurrentMap<Relation<User>, Integer> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<Relation<User>, Integer> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap();
 
     @JsonApiSetRelation
     public void setRelation(User source, Long targetId, String fieldName) {
         removeRelations(fieldName);
         if (targetId != null) {
-            THREAD_LOCAL_REPOSITORY.put(new Relation<>(source, targetId, fieldName), 0);
+            THREAD_LOCAL_REPOSITORY.put(new Relation(source, targetId, fieldName), 0);
         }
     }
 
@@ -30,7 +30,7 @@ public class UserToProjectRepository {
         removeRelations(fieldName);
         if (targetIds != null) {
             for (Long targetId : targetIds) {
-                THREAD_LOCAL_REPOSITORY.put(new Relation<>(source, targetId, fieldName), 0);
+                THREAD_LOCAL_REPOSITORY.put(new Relation(source, targetId, fieldName), 0);
             }
         }
     }
@@ -38,7 +38,7 @@ public class UserToProjectRepository {
     @JsonApiAddRelations
     public void addRelations(User source, Iterable<Long> targetIds, String fieldName) {
         for (Long targetId : targetIds) {
-            THREAD_LOCAL_REPOSITORY.put(new Relation<>(source, targetId, fieldName), 0);
+            THREAD_LOCAL_REPOSITORY.put(new Relation(source, targetId, fieldName), 0);
         }
     }
 
@@ -80,7 +80,7 @@ public class UserToProjectRepository {
 
     @JsonApiFindManyTargets
     public Iterable<Project> findManyTargets(Long sourceId, String fieldName, QueryParams queryParams) {
-        List<Project> projects = new LinkedList<>();
+        List<Project> projects = new LinkedList();
         for (Relation<User> relation: THREAD_LOCAL_REPOSITORY.keySet()) {
             if (relation.getSource().getId().equals(sourceId) && relation.getFieldName().equals(fieldName)) {
                 Project project = new Project();

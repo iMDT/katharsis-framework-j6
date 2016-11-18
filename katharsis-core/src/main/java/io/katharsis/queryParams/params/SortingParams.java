@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SortingParams {
-    private Map<String, RestrictedSortingValues> params = new HashMap<>();
+    private Map<String, RestrictedSortingValues> params = new HashMap();
 
     public SortingParams(Map<String, RestrictedSortingValues> params) {
         this.params = params;

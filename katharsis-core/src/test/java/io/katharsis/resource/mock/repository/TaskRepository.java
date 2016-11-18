@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @JsonApiResourceRepository(Task.class)
 public class TaskRepository {
 
-    private static final ConcurrentHashMap<Long, Task> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Long, Task> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap();
 
     @JsonApiSave
     public <S extends Task> S save(S entity) {
@@ -41,7 +41,7 @@ public class TaskRepository {
 
     @JsonApiFindAllWithIds
     public Iterable<Task> findAll(Iterable<Long> ids, QueryParams queryParams) {
-        List<Task> values = new LinkedList<>();
+        List<Task> values = new LinkedList();
         for (Task value : THREAD_LOCAL_REPOSITORY.values()) {
             if (contains(value, ids)) {
                 values.add(value);

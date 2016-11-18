@@ -9,7 +9,7 @@ import java.util.Map;
  * @param <T> type of the parameter
  */
 public class TypedParams<T> {
-    private Map<String, T> params = new HashMap<>();
+    private Map<String, T> params = new HashMap();
 
     public TypedParams(Map<String, T> params) {
         this.params = params;

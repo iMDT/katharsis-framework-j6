@@ -85,7 +85,7 @@ public class FilterSpec extends AbstractPathSpec implements Comparable<FilterSpe
 	 */
 	public FilterSpec addExpression(FilterSpec expr) {
 		if (expressions == null) {
-			expressions = new ArrayList<>();
+			expressions = new ArrayList();
 		}
 		expressions.add((FilterSpec) expr);
 		return this;
@@ -222,7 +222,7 @@ public class FilterSpec extends AbstractPathSpec implements Comparable<FilterSpe
 	}
 
 	static List<FilterSpec> cloneExpressions(List<FilterSpec> list, boolean normalize) {
-		List<FilterSpec> result = new ArrayList<>();
+		List<FilterSpec> result = new ArrayList();
 		for (FilterSpec spec : list) {
 			if (normalize) {
 				result.add(spec.normalize());

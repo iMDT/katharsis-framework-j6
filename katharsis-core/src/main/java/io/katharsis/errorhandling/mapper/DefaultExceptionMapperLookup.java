@@ -28,7 +28,7 @@ public class DefaultExceptionMapperLookup implements ExceptionMapperLookup {
         }
         Set<Class<?>> exceptionMapperClasses = reflections.getTypesAnnotatedWith(ExceptionMapperProvider.class);
 
-        Set<JsonApiExceptionMapper> exceptionMappers = new HashSet<>();
+        Set<JsonApiExceptionMapper> exceptionMappers = new HashSet();
         for (Class<?> exceptionMapperClazz : exceptionMapperClasses) {
             if (!JsonApiExceptionMapper.class.isAssignableFrom(exceptionMapperClazz)) {
                 throw new InvalidResourceException(exceptionMapperClazz.getCanonicalName() + " is not an implementation of JsonApiExceptionMapper");

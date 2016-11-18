@@ -35,7 +35,11 @@ public class LinkageContainerSerializer extends JsonSerializer<LinkageContainer>
         writeType(gen, linkageContainer.getRelationshipClass());
         try {
             writeId(gen, linkageContainer);
-        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
         gen.writeEndObject();

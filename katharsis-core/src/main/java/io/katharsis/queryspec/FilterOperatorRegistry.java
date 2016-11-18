@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FilterOperatorRegistry {
 
-	private Map<String, FilterOperator> operators = new ConcurrentHashMap<>();
+	private Map<String, FilterOperator> operators = new ConcurrentHashMap();
 
 	private FilterOperator defaultOperator;
 

@@ -25,7 +25,7 @@ public class RequestBodyDeserializer extends JsonDeserializer<RequestBody> {
         if (data != null) {
             if (data.isArray()) {
                 Iterator<JsonNode> nodeIterator = data.iterator();
-                List<DataBody> dataBodies = new LinkedList<>();
+                List<DataBody> dataBodies = new LinkedList();
 
                 while (nodeIterator.hasNext()) {
                     DataBody newLinkage = jp.getCodec().treeToValue(nodeIterator.next(), DataBody.class);

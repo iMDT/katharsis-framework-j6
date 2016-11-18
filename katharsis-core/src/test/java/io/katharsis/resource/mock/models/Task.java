@@ -20,7 +20,7 @@ public class Task {
     private Project project;
 
     @JsonApiToMany
-    private List<Project> projectsInit = new ArrayList<>();
+    private List<Project> projectsInit = new ArrayList();
 
 
     @JsonApiToMany(lazy = false)

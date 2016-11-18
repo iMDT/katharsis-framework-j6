@@ -21,7 +21,7 @@ public class QueryParamsBuilderTest {
 
     @Before
     public void prepare() {
-        queryParams = new HashMap<>();
+        queryParams = new HashMap();
         sut = new QueryParamsBuilder(new DefaultQueryParamsParser());
     }
 
@@ -155,7 +155,7 @@ public class QueryParamsBuilderTest {
     public void onGivenIncludedRelationsBuilderShouldReturnRequestParamsWithIncludedRelations() throws
         ParametersDeserializationException {
         // GIVEN
-        queryParams.put("include[special-users]", new LinkedHashSet<>(Arrays.asList("friends", "foes")));
+        queryParams.put("include[special-users]", new LinkedHashSet(Arrays.asList("friends", "foes")));
 
         // WHEN
         QueryParams result = sut.buildQueryParams(queryParams);

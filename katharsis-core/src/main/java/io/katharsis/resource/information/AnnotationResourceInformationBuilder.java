@@ -106,7 +106,7 @@ public class AnnotationResourceInformationBuilder implements ResourceInformation
     }
 
     private List<ResourceFieldWrapper> getFieldResourceFields(List<Field> classFields) {
-        List<ResourceFieldWrapper> fieldWrappers = new ArrayList<>(classFields.size());
+        List<ResourceFieldWrapper> fieldWrappers = new ArrayList(classFields.size());
         for (Field field : classFields) {
             String jsonName = resourceFieldNameTransformer.getName(field);
             String underlyingName = field.getName();
@@ -123,7 +123,7 @@ public class AnnotationResourceInformationBuilder implements ResourceInformation
     }
 
     private List<ResourceFieldWrapper> getGetterResourceFields(List<Method> classGetters) {
-        List<ResourceFieldWrapper> fieldWrappers = new ArrayList<>(classGetters.size());
+        List<ResourceFieldWrapper> fieldWrappers = new ArrayList(classGetters.size());
         for (Method getter : classGetters) {
             String jsonName = resourceFieldNameTransformer.getName(getter);
             String underlyingName = resourceFieldNameTransformer.getMethodName(getter);
@@ -139,7 +139,7 @@ public class AnnotationResourceInformationBuilder implements ResourceInformation
     }
 
     private List<AnnotatedResourceField> getResourceFields(List<ResourceFieldWrapper> resourceClassFields, List<ResourceFieldWrapper> resourceGetterFields) {
-        Map<String, AnnotatedResourceField> resourceFieldMap = new HashMap<>();
+        Map<String, AnnotatedResourceField> resourceFieldMap = new HashMap();
 
         for (ResourceFieldWrapper fieldWrapper : resourceClassFields) {
             if (!fieldWrapper.isDiscarded())
@@ -162,7 +162,7 @@ public class AnnotationResourceInformationBuilder implements ResourceInformation
     }
 
     private List<AnnotatedResourceField> discardIgnoredField(Collection<AnnotatedResourceField> resourceFieldValues) {
-        List<AnnotatedResourceField> resourceFields = new LinkedList<>();
+        List<AnnotatedResourceField> resourceFields = new LinkedList();
         for (AnnotatedResourceField resourceField : resourceFieldValues) {
             if (!resourceField.isAnnotationPresent(JsonIgnore.class)) {
                 resourceFields.add(resourceField);
@@ -183,7 +183,7 @@ public class AnnotationResourceInformationBuilder implements ResourceInformation
     }
 
     private static AnnotatedResourceField mergeAnnotations(AnnotatedResourceField fromField, AnnotatedResourceField fromMethod) {
-        List<Annotation> annotations = new ArrayList<>(fromField.getAnnotations());
+        List<Annotation> annotations = new ArrayList(fromField.getAnnotations());
         annotations.addAll(fromMethod.getAnnotations());
 
         return new AnnotatedResourceField(fromField.getJsonName(), fromField.getUnderlyingName(),
@@ -220,7 +220,7 @@ public class AnnotationResourceInformationBuilder implements ResourceInformation
     }
 
     private <T> AnnotatedResourceField getIdField(Class<T> resourceClass, List<AnnotatedResourceField> classFields) {
-        List<AnnotatedResourceField> idFields = new ArrayList<>(1);
+        List<AnnotatedResourceField> idFields = new ArrayList(1);
         for (AnnotatedResourceField field : classFields) {
             if (field.isAnnotationPresent(JsonApiId.class)) {
                 idFields.add(field);
@@ -236,7 +236,7 @@ public class AnnotationResourceInformationBuilder implements ResourceInformation
     }
 
     private <T> String getMetaFieldName(Class<T> resourceClass, List<AnnotatedResourceField> classFields) {
-        List<AnnotatedResourceField> metaFields = new ArrayList<>(1);
+        List<AnnotatedResourceField> metaFields = new ArrayList(1);
         for (AnnotatedResourceField field : classFields) {
             if (field.isAnnotationPresent(JsonApiMetaInformation.class)) {
                 metaFields.add(field);
@@ -252,7 +252,7 @@ public class AnnotationResourceInformationBuilder implements ResourceInformation
     }
 
     private <T> String getLinksFieldName(Class<T> resourceClass, List<AnnotatedResourceField> classFields) {
-        List<AnnotatedResourceField> linksFields = new ArrayList<>(1);
+        List<AnnotatedResourceField> linksFields = new ArrayList(1);
         for (AnnotatedResourceField field : classFields) {
             if (field.isAnnotationPresent(JsonApiLinksInformation.class)) {
                 linksFields.add(field);
@@ -301,9 +301,9 @@ public class AnnotationResourceInformationBuilder implements ResourceInformation
         Set<AnnotatedResourceField> basicFields;
         if (propertyOrderOptional.isPresent()) {
             JsonPropertyOrder propertyOrder = propertyOrderOptional.get();
-            basicFields = new TreeSet<>(new FieldOrderedComparator(propertyOrder.value(), propertyOrder.alphabetic()));
+            basicFields = new TreeSet(new FieldOrderedComparator(propertyOrder.value(), propertyOrder.alphabetic()));
         } else {
-            basicFields = new HashSet<>();
+            basicFields = new HashSet();
         }
         return basicFields;
     }

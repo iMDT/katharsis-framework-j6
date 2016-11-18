@@ -126,3 +126,5 @@ buildNumber.properties
 
 .gradle
 build
+
+maven2/

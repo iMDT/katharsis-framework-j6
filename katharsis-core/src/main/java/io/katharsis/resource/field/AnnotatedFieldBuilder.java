@@ -21,7 +21,11 @@ public class AnnotatedFieldBuilder {
         for(Constructor<?> constructor : AnnotatedField.class.getConstructors()) {
             try {
                 return buildAnnotatedField(annotatedClass, field, annotationMap, constructor);
-            } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            } catch (IllegalAccessException e) {
+                throw new InternalException("Exception while building " + AnnotatedField.class.getCanonicalName(), e);
+            } catch (InstantiationException  e) {
+                throw new InternalException("Exception while building " + AnnotatedField.class.getCanonicalName(), e);
+            } catch (InvocationTargetException e) {
                 throw new InternalException("Exception while building " + AnnotatedField.class.getCanonicalName(), e);
             }
         }

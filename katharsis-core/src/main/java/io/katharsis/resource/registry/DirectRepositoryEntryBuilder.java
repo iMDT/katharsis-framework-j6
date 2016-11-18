@@ -62,7 +62,7 @@ public class DirectRepositoryEntryBuilder implements RepositoryEntryBuilder {
         Set<Class<?>> relationshipRepositories =
             findRelationshipRepositories(resourceClass, relationshipRepositoryClasses);
 
-        List<ResponseRelationshipEntry<?, ?>> relationshipEntries = new LinkedList<>();
+        List<ResponseRelationshipEntry<?, ?>> relationshipEntries = new LinkedList();
         for (Class<?> relationshipRepositoryClass : relationshipRepositories) {
             RelationshipRepository relationshipRepository = (RelationshipRepository) jsonServiceLocator.getInstance(relationshipRepositoryClass);
             if (relationshipRepository == null) {
@@ -73,15 +73,15 @@ public class DirectRepositoryEntryBuilder implements RepositoryEntryBuilder {
                 relationshipRepositoryClass.getCanonicalName(), resourceClass.getCanonicalName());
 
             @SuppressWarnings("unchecked")
-            DirectResponseRelationshipEntry<Object, Object> relationshipEntry = new DirectResponseRelationshipEntry<>(
-                new RepositoryInstanceBuilder<>(jsonServiceLocator, (Class<RelationshipRepository>) relationshipRepositoryClass));
+            DirectResponseRelationshipEntry<Object, Object> relationshipEntry = new DirectResponseRelationshipEntry(
+                new RepositoryInstanceBuilder(jsonServiceLocator, (Class<RelationshipRepository>) relationshipRepositoryClass));
             relationshipEntries.add(relationshipEntry);
         }
         return relationshipEntries;
     }
 
     private Set<Class<?>> findRelationshipRepositories(Class resourceClass, Set<Class<?>> relationshipRepositoryClasses) {
-        Set<Class<?>> relationshipRepositories = new HashSet<>();
+        Set<Class<?>> relationshipRepositories = new HashSet();
         for (Class<?> repoClass : relationshipRepositoryClasses) {
             if (RelationshipRepository.class.isAssignableFrom(repoClass)) {
                 Class<?>[] typeArgs = TypeResolver.resolveRawArguments(RelationshipRepository.class, repoClass);

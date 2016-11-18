@@ -113,9 +113,9 @@ public class ResourceGetTest extends BaseControllerTest {
         // GIVEN
         JsonPath jsonPath = pathBuilder.buildPath("/task-with-lookup/1");
         ResourceGet responseGetResp = new ResourceGet(resourceRegistry, typeParser, includeFieldSetter);
-        Map<String, Set<String>> queryParams = new HashMap<>();
+        Map<String, Set<String>> queryParams = new HashMap();
         queryParams.put(RestrictedQueryParamsMembers.include.name() + "[task-with-lookup]",
-            new HashSet<>(Arrays.asList("project", "projectNull", "projectOverridden", "projectOverriddenNull")));
+            new HashSet(Arrays.asList("project", "projectNull", "projectOverridden", "projectOverriddenNull")));
         QueryParams queryParamsObject = new QueryParamsBuilder(new DefaultQueryParamsParser()).buildQueryParams(queryParams);
 
         // WHEN
@@ -197,7 +197,7 @@ public class ResourceGetTest extends BaseControllerTest {
         //Given
         JsonPath jsonPath = pathBuilder.buildPath("/tasks/" + taskId );
         ResourceGet responseGetResp = new ResourceGet(resourceRegistry, typeParser, includeFieldSetter);
-        Map<String, Set<String>> queryParams = new HashMap<>();
+        Map<String, Set<String>> queryParams = new HashMap();
         queryParams.put(RestrictedQueryParamsMembers.include.name() + "[tasks]",
             Collections.singleton("[\"project\"]"));
         QueryParams requestParams = new QueryParamsBuilder(new DefaultQueryParamsParser()).buildQueryParams(queryParams);

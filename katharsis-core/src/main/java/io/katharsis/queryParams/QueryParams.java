@@ -57,7 +57,7 @@ public class QueryParams {
     }
 
     void setFilters(Map<String, Set<String>> filters) {
-        Map<String, Map<String, Set<String>>> temporaryFiltersMap = new LinkedHashMap<>();
+        Map<String, Map<String, Set<String>>> temporaryFiltersMap = new LinkedHashMap();
 
         for (Map.Entry<String, Set<String>> entry : filters.entrySet()) {
 
@@ -70,20 +70,20 @@ public class QueryParams {
                 Map<String, Set<String>> resourceParams = temporaryFiltersMap.get(resourceType);
                 resourceParams.put(propertyPath, Collections.unmodifiableSet(entry.getValue()));
             } else {
-                Map<String, Set<String>> resourceParams = new LinkedHashMap<>();
+                Map<String, Set<String>> resourceParams = new LinkedHashMap();
                 temporaryFiltersMap.put(resourceType, resourceParams);
                 resourceParams.put(propertyPath, entry.getValue());
             }
         }
 
-        Map<String, FilterParams> decodedFiltersMap = new LinkedHashMap<>();
+        Map<String, FilterParams> decodedFiltersMap = new LinkedHashMap();
 
         for (Map.Entry<String, Map<String, Set<String>>> resourceTypesMap : temporaryFiltersMap.entrySet()) {
             Map<String, Set<String>> filtersMap = Collections.unmodifiableMap(resourceTypesMap.getValue());
             decodedFiltersMap.put(resourceTypesMap.getKey(), new FilterParams(filtersMap));
         }
 
-        this.filters = new TypedParams<>(Collections.unmodifiableMap(decodedFiltersMap));
+        this.filters = new TypedParams(Collections.unmodifiableMap(decodedFiltersMap));
     }
 
     /**
@@ -107,7 +107,7 @@ public class QueryParams {
     }
 
     void setSorting(Map<String, Set<String>> sorting) {
-        Map<String, Map<String, RestrictedSortingValues>> temporarySortingMap = new LinkedHashMap<>();
+        Map<String, Map<String, RestrictedSortingValues>> temporarySortingMap = new LinkedHashMap();
 
         for (Map.Entry<String, Set<String>> entry : sorting.entrySet()) {
 
@@ -123,7 +123,7 @@ public class QueryParams {
                     .iterator()
                     .next()));
             } else {
-                Map<String, RestrictedSortingValues> resourceParams = new HashMap<>();
+                Map<String, RestrictedSortingValues> resourceParams = new HashMap();
                 temporarySortingMap.put(resourceType, resourceParams);
                 resourceParams.put(propertyPath, RestrictedSortingValues.valueOf(entry.getValue()
                     .iterator()
@@ -131,7 +131,7 @@ public class QueryParams {
             }
         }
 
-        Map<String, SortingParams> decodedSortingMap = new LinkedHashMap<>();
+        Map<String, SortingParams> decodedSortingMap = new LinkedHashMap();
 
         for (Map.Entry<String, Map<String, RestrictedSortingValues>> resourceTypesMap : temporarySortingMap.entrySet
             ()) {
@@ -140,7 +140,7 @@ public class QueryParams {
         }
 
 
-        this.sorting = new TypedParams<>(Collections.unmodifiableMap(decodedSortingMap));
+        this.sorting = new TypedParams(Collections.unmodifiableMap(decodedSortingMap));
 
     }
 
@@ -164,7 +164,7 @@ public class QueryParams {
     }
 
     void setGrouping(Map<String, Set<String>> grouping) {
-        Map<String, Set<String>> temporaryGroupingMap = new LinkedHashMap<>();
+        Map<String, Set<String>> temporaryGroupingMap = new LinkedHashMap();
 
         for (Map.Entry<String, Set<String>> entry : grouping.entrySet()) {
 
@@ -182,20 +182,20 @@ public class QueryParams {
                 resourceParams.addAll(entry.getValue());
                 temporaryGroupingMap.put(resourceType, resourceParams);
             } else {
-                Set<String> resourceParams = new LinkedHashSet<>();
+                Set<String> resourceParams = new LinkedHashSet();
                 resourceParams.addAll(entry.getValue());
                 temporaryGroupingMap.put(resourceType, resourceParams);
             }
         }
 
-        Map<String, GroupingParams> decodedGroupingMap = new LinkedHashMap<>();
+        Map<String, GroupingParams> decodedGroupingMap = new LinkedHashMap();
 
         for (Map.Entry<String, Set<String>> resourceTypesMap : temporaryGroupingMap.entrySet()) {
             Set<String> groupingSet = Collections.unmodifiableSet(resourceTypesMap.getValue());
             decodedGroupingMap.put(resourceTypesMap.getKey(), new GroupingParams(groupingSet));
         }
 
-        this.grouping = new TypedParams<>(Collections.unmodifiableMap(decodedGroupingMap));
+        this.grouping = new TypedParams(Collections.unmodifiableMap(decodedGroupingMap));
 
     }
 
@@ -219,7 +219,7 @@ public class QueryParams {
     }
 
     void setPagination(Map<String, Set<String>> pagination) {
-        Map<RestrictedPaginationKeys, Integer> decodedPagination = new LinkedHashMap<>();
+        Map<RestrictedPaginationKeys, Integer> decodedPagination = new LinkedHashMap();
 
         for (Map.Entry<String, Set<String>> entry : pagination.entrySet()) {
             List<String> propertyList = buildPropertyListFromEntry(entry, RestrictedQueryParamsMembers.page.name());
@@ -262,7 +262,7 @@ public class QueryParams {
     }
 
     void setIncludedFields(Map<String, Set<String>> sparse) {
-        Map<String, Set<String>> temporarySparseMap = new LinkedHashMap<>();
+        Map<String, Set<String>> temporarySparseMap = new LinkedHashMap();
 
         for (Map.Entry<String, Set<String>> entry : sparse.entrySet()) {
             List<String> propertyList = buildPropertyListFromEntry(entry, RestrictedQueryParamsMembers.fields.name());
@@ -279,20 +279,20 @@ public class QueryParams {
                 resourceParams.addAll(entry.getValue());
                 temporarySparseMap.put(resourceType, resourceParams);
             } else {
-                Set<String> resourceParams = new LinkedHashSet<>();
+                Set<String> resourceParams = new LinkedHashSet();
                 resourceParams.addAll(entry.getValue());
                 temporarySparseMap.put(resourceType, resourceParams);
             }
         }
 
-        Map<String, IncludedFieldsParams> decodedSparseMap = new LinkedHashMap<>();
+        Map<String, IncludedFieldsParams> decodedSparseMap = new LinkedHashMap();
 
         for (Map.Entry<String, Set<String>> resourceTypesMap : temporarySparseMap.entrySet()) {
             Set<String> sparseSet = Collections.unmodifiableSet(resourceTypesMap.getValue());
             decodedSparseMap.put(resourceTypesMap.getKey(), new IncludedFieldsParams(sparseSet));
         }
 
-        this.includedFields = new TypedParams<>(Collections.unmodifiableMap(decodedSparseMap));
+        this.includedFields = new TypedParams(Collections.unmodifiableMap(decodedSparseMap));
     }
 
     /**
@@ -317,7 +317,7 @@ public class QueryParams {
     }
 
     void setIncludedRelations(Map<String, Set<String>> inclusions) {
-        Map<String, Set<Inclusion>> temporaryInclusionsMap = new LinkedHashMap<>();
+        Map<String, Set<Inclusion>> temporaryInclusionsMap = new LinkedHashMap();
 
         for (Map.Entry<String, Set<String>> entry : inclusions.entrySet()) {
             List<String> propertyList = buildPropertyListFromEntry(entry, RestrictedQueryParamsMembers.include.name());
@@ -332,7 +332,7 @@ public class QueryParams {
             if (temporaryInclusionsMap.containsKey(resourceType)) {
                 resourceParams = temporaryInclusionsMap.get(resourceType);
             } else {
-                resourceParams = new LinkedHashSet<>();
+                resourceParams = new LinkedHashSet();
             }
             for(String path : entry.getValue()) {
                 resourceParams.add(new Inclusion(path));
@@ -340,14 +340,14 @@ public class QueryParams {
             temporaryInclusionsMap.put(resourceType, resourceParams);
         }
 
-        Map<String, IncludedRelationsParams> decodedInclusions = new LinkedHashMap<>();
+        Map<String, IncludedRelationsParams> decodedInclusions = new LinkedHashMap();
 
         for (Map.Entry<String, Set<Inclusion>> resourceTypesMap : temporaryInclusionsMap.entrySet()) {
             Set<Inclusion> inclusionSet = Collections.unmodifiableSet(resourceTypesMap.getValue());
             decodedInclusions.put(resourceTypesMap.getKey(), new IncludedRelationsParams(inclusionSet));
         }
 
-        this.includedRelations = new TypedParams<>(Collections.unmodifiableMap(decodedInclusions));
+        this.includedRelations = new TypedParams(Collections.unmodifiableMap(decodedInclusions));
     }
 
     private static List<String> buildPropertyListFromEntry(Map.Entry<String, Set<String>> entry, String prefix) {
@@ -357,7 +357,7 @@ public class QueryParams {
         String pattern = "[^\\]\\[]+(?<!\\[)(?=\\])";
         Pattern regexp = Pattern.compile(pattern);
         Matcher matcher = regexp.matcher(entryKey);
-        List<String> matchList = new LinkedList<>();
+        List<String> matchList = new LinkedList();
 
         while (matcher.find()) {
             matchList.add(matcher.group());

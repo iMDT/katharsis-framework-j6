@@ -112,7 +112,7 @@ public class ErrorDataBuilder {
 
     public ErrorDataBuilder addMetaField(String key, Object value) {
         if (meta == null) {
-            meta = new HashMap<>();
+            meta = new HashMap();
         }
         meta.put(key, value);
         return this;

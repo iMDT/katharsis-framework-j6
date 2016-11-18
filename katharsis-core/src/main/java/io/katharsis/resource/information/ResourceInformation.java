@@ -131,7 +131,7 @@ public class ResourceInformation {
      * @return not basic attribute names
      */
     public Set<String> getNotAttributeFields() {
-        Set<String> notAttributeFields = new HashSet<>();
+        Set<String> notAttributeFields = new HashSet();
         for (ResourceField relationshipField : relationshipFields) {
             notAttributeFields.add(relationshipField.getJsonName());
         }

@@ -26,7 +26,7 @@ public class RelationshipsResourceDelete extends RelationshipsResourceUpsert {
     public void processToManyRelationship(Object resource, Class<? extends Serializable> relationshipIdType,
                                           String elementName, Iterable<DataBody> dataBodies, QueryParams queryParams,
                                           RelationshipRepositoryAdapter relationshipRepositoryForClass) {
-        List<Serializable> parsedIds = new LinkedList<>();
+        List<Serializable> parsedIds = new LinkedList();
         for (DataBody dataBody : dataBodies) {
             Serializable parsedId = typeParser.parse(dataBody.getId(), relationshipIdType);
             parsedIds.add(parsedId);

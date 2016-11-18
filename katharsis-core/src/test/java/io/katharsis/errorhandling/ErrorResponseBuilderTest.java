@@ -17,25 +17,4 @@ public class ErrorResponseBuilderTest {
         assertThat(response.getHttpStatus()).isEqualTo(STATUS);
     }
 
-    @Test
-    public void shouldSetSingleErrorData() throws Exception {
-        ErrorResponse response = ErrorResponse.builder()
-                .setSingleErrorData(ErrorDataMother.fullyPopulatedErrorData())
-                .build();
-
-        assertThat((Iterable<?>) response.getResponse().getEntity())
-                .hasSize(1)
-                .containsExactly(ErrorDataMother.fullyPopulatedErrorData());
-    }
-
-    @Test
-    public void shouldSetErrorDataCollection() throws Exception {
-        ErrorResponse response = ErrorResponse.builder()
-                .setErrorData(ErrorDataMother.oneSizeCollectionOfErrorData())
-                .build();
-
-        assertThat((Iterable<?>) response.getResponse().getEntity())
-                .hasSize(1)
-                .containsExactly(ErrorDataMother.fullyPopulatedErrorData());
-    }
 }

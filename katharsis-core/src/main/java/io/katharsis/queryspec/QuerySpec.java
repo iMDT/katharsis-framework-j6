@@ -12,11 +12,11 @@ public class QuerySpec {
 	private Class<?> resourceClass;
 	private Long limit = null;
 	private long offset = 0;
-	private List<FilterSpec> filters = new ArrayList<>();
-	private List<SortSpec> sort = new ArrayList<>();
-	private List<IncludeFieldSpec> includedFields = new ArrayList<>();
-	private List<IncludeRelationSpec> includedRelations = new ArrayList<>();
-	private Map<Class<?>, QuerySpec> relatedSpecs = new HashMap<>();
+	private List<FilterSpec> filters = new ArrayList();
+	private List<SortSpec> sort = new ArrayList();
+	private List<IncludeFieldSpec> includedFields = new ArrayList();
+	private List<IncludeRelationSpec> includedRelations = new ArrayList();
+	private Map<Class<?>, QuerySpec> relatedSpecs = new HashMap();
 
 	public QuerySpec(Class<?> resourceClass) {
 		this.resourceClass = resourceClass;

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class ExceptionMapperRegistryBuilder {
-    private final Set<ExceptionMapperType> exceptionMappers = new HashSet<>();
+    private final Set<ExceptionMapperType> exceptionMappers = new HashSet();
 
     public ExceptionMapperRegistry build(String resourceSearchPackage) {
         return build(new DefaultExceptionMapperLookup(resourceSearchPackage));

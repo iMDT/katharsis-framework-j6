@@ -43,7 +43,11 @@ public class PropertyUtils {
 
         try {
             return INSTANCE.getPropertyValue(bean, field);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException  e) {
+            throw handleReflectionException(bean, field, e);
+        } catch (IllegalAccessException e) {
+            throw handleReflectionException(bean, field, e);
+        } catch (InvocationTargetException e) {
             throw handleReflectionException(bean, field, e);
         }
     }
@@ -60,7 +64,11 @@ public class PropertyUtils {
     public static Class<?> getPropertyClass(Class<?> beanClass, String field) {
         try {
             return INSTANCE.findPropertyClass(beanClass, field);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException e) {
+            throw handleReflectionException(beanClass, field, e);
+        } catch (IllegalAccessException  e) {
+            throw handleReflectionException(beanClass, field, e);
+        }catch (InvocationTargetException e) {
             throw handleReflectionException(beanClass, field, e);
         }
     }
@@ -221,7 +229,11 @@ public class PropertyUtils {
 
         try {
             INSTANCE.setPropertyValue(bean, field, value);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException  e) {
+            throw handleReflectionException(bean, field, e);
+        } catch (IllegalAccessException e) {
+            throw handleReflectionException(bean, field, e);
+        } catch (InvocationTargetException e) {
             throw handleReflectionException(bean, field, e);
         }
     }
@@ -261,11 +273,11 @@ public class PropertyUtils {
     private Object prepareValue(Object value, Class<?> fieldClass) {
         if (Set.class.isAssignableFrom(fieldClass) && value instanceof List) {
             List listValue = (List) value;
-            Set setValue = new HashSet<>(listValue.size());
+            Set setValue = new HashSet(listValue.size());
             setValue.addAll(listValue);
             return setValue;
         } else if (List.class.isAssignableFrom(fieldClass) && value instanceof Set) {
-            return new LinkedList<>((Set)value);
+            return new LinkedList((Set)value);
         }
         return value;
     }

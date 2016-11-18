@@ -41,7 +41,7 @@ public class ResourceRegistryTest {
     @Test
     public void testSecondaryConstructor() {
     	RegistryEntry entry = Mockito.mock(RegistryEntry.class);
-    	Map<Class,RegistryEntry> map = new HashMap<>();
+    	Map<Class,RegistryEntry> map = new HashMap();
     	map.put(Task.class, entry);
     	resourceRegistry = new ResourceRegistry(map, new ConstantServiceUrlProvider(TEST_MODELS_URL));
     	assertThat(resourceRegistry.getEntry(Task.class)).isSameAs(entry);

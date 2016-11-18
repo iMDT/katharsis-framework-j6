@@ -98,7 +98,7 @@ public class RelationshipsResourceGet extends ResourceIncludeField  {
 
     private List<LinkageContainer> getLinkages(Class<?> relationshipFieldClass, RegistryEntry relationshipFieldEntry,
                                                JsonApiResponse targetObjects) {
-        List<LinkageContainer> dataList = new ArrayList<>();
+        List<LinkageContainer> dataList = new ArrayList();
         if (targetObjects == null) {
             return dataList;
         }

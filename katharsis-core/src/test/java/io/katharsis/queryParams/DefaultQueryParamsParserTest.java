@@ -14,7 +14,7 @@ public class DefaultQueryParamsParserTest {
 
     @Before
     public void prepare() {
-        queryParams = new HashMap<>();
+        queryParams = new HashMap();
     }
 
     @Test

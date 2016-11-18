@@ -15,7 +15,7 @@ import static java.util.Collections.singletonList;
  * Parsers for standard Java types.
  */
 public final class StandardTypeParsers {
-    public static final Map<Class, StandardTypeParser> parsers = new HashMap<>();
+    public static final Map<Class, StandardTypeParser> parsers = new HashMap();
 
     static {
         addType(asList(Byte.class, byte.class), new StandardTypeParser<Byte>() {

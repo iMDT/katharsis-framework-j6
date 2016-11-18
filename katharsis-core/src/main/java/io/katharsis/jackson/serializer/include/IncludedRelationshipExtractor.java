@@ -33,12 +33,18 @@ public class IncludedRelationshipExtractor {
     }
 
     public Map<ResourceDigest, Container> extractIncludedResources(Object resource, BaseResponseContext response) {
-        Map<ResourceDigest, Container> includedResources = new HashMap<>();
+        Map<ResourceDigest, Container> includedResources = new HashMap();
 
         populateIncludedByDefaultResources(resource, response, ContainerType.TOP, includedResources, 1);
         try {
             populateIncludedRelationships(resource, response, includedResources);
-        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException | NoSuchFieldException e) {
+        } catch (IllegalAccessException  e) {
+            logger.info("Exception while extracting included fields", e);
+        } catch (NoSuchMethodException  e) {
+            logger.info("Exception while extracting included fields", e);
+        } catch (InvocationTargetException e) {
+            logger.info("Exception while extracting included fields", e);
+        } catch (NoSuchFieldException e) {
             logger.info("Exception while extracting included fields", e);
         }
         return includedResources;

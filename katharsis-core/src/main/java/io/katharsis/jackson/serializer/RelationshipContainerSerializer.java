@@ -103,7 +103,11 @@ public class RelationshipContainerSerializer extends JsonSerializer<Relationship
             } else {
                 writeToOneLinkage(relationshipContainer, gen, relationshipEntry);
             }
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (IllegalAccessException  e) {
+            throw new JsonSerializationException("Error writing linkage field");
+        } catch (InvocationTargetException e) {
+            throw new JsonSerializationException("Error writing linkage field");
+        } catch (NoSuchMethodException e) {
             throw new JsonSerializationException("Error writing linkage field");
         }
     }

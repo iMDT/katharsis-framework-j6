@@ -39,7 +39,7 @@ public class DefaultControllerLookup implements ControllerLookup {
 
     @Override
     public Set<BaseController> getControllers() {
-        Set<BaseController> controllers = new HashSet<>();
+        Set<BaseController> controllers = new HashSet();
         controllers.add(new RelationshipsResourceDelete(resourceRegistry, typeParser));
         controllers.add(new RelationshipsResourcePatch(resourceRegistry, typeParser));
         controllers.add(new RelationshipsResourcePost(resourceRegistry, typeParser));

@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ProjectRepository implements ResourceRepository<Project, Long> {
 
-    private static final ConcurrentHashMap<Long, Project> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Long, Project> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap();
 
     @Override
     public <S extends Project> S save(S entity) {
@@ -38,7 +38,7 @@ public class ProjectRepository implements ResourceRepository<Project, Long> {
 
     @Override
     public Iterable<Project> findAll(Iterable<Long> ids, QueryParams queryParams) {
-        List<Project> values = new LinkedList<>();
+        List<Project> values = new LinkedList();
         for (Project value : THREAD_LOCAL_REPOSITORY.values()) {
             if (contains(value, ids)) {
                 values.add(value);

@@ -99,8 +99,8 @@ public class BaseResponseSerializer extends JsonSerializer<BaseResponseContext> 
     private Map<ResourceDigest, Container> serializeResourceCollection(CollectionResponseContext responseContext, JsonGenerator gen)
             throws IOException {
         Iterable values = (Iterable) responseContext.getResponse().getEntity();
-        Map<ResourceDigest, Container> includedFields = new HashMap<>();
-        List<Container> containers = new ArrayList<>();
+        Map<ResourceDigest, Container> includedFields = new HashMap();
+        List<Container> containers = new ArrayList();
 
         if (values == null) {
             values = Collections.emptyList();

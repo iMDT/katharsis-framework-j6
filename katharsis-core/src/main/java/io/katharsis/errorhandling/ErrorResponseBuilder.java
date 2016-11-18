@@ -12,7 +12,7 @@ public class ErrorResponseBuilder {
         return this;
     }
     public ErrorResponseBuilder setSingleErrorData(ErrorData errorData) {
-        List<ErrorData> errorDatas = new ArrayList<>();
+        List<ErrorData> errorDatas = new ArrayList();
         errorDatas.add(errorData);
         this.data = errorDatas;
         return this;

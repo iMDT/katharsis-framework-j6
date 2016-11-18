@@ -276,7 +276,7 @@ public class ModuleRegistry {
 			};
 			DirectResponseResourceEntry resourceEntry = new DirectResponseResourceEntry(repositoryInstanceBuilder);
 			ResourceInformation resourceInformation = getResourceInformationBuilder().build(resourceClass);
-			List<ResponseRelationshipEntry> relationshipEntries = new ArrayList<>();
+			List<ResponseRelationshipEntry> relationshipEntries = new ArrayList();
 			for (final RelationshipRepositoryRegistration relationshipRepositoryRegistration : relationshipRepositoryRegistrations) {
 				if (relationshipRepositoryRegistration.getSourceType() == resourceClass) {
 					RepositoryInstanceBuilder<RelationshipRepository> relationshipInstanceBuilder = new RepositoryInstanceBuilder<RelationshipRepository>(

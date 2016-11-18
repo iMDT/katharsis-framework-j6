@@ -47,13 +47,13 @@ public class ResourceRegistryBuilder {
     public ResourceRegistry build(ResourceLookup resourceLookup,  ServiceUrlProvider serviceUrl) {
         Set<Class<?>> jsonApiResources = resourceLookup.getResourceClasses();
         
-        Set<ResourceInformation> resourceInformationSet = new HashSet<>(jsonApiResources.size());
+        Set<ResourceInformation> resourceInformationSet = new HashSet(jsonApiResources.size());
         for (Class<?> clazz : jsonApiResources) {
             resourceInformationSet.add(resourceInformationBuilder.build(clazz));
             LOGGER.info("{} registered as a resource", clazz);
         }
 
-        Set<RegistryEntry> registryEntries = new HashSet<>(resourceInformationSet.size());
+        Set<RegistryEntry> registryEntries = new HashSet(resourceInformationSet.size());
         for (ResourceInformation resourceInformation : resourceInformationSet) {
             Class<?> resourceClass = resourceInformation.getResourceClass();
 

@@ -16,7 +16,7 @@ public class FieldOrderedComparator implements Comparator<ResourceField> {
     private final boolean alphabetic;
 
     public FieldOrderedComparator(String[] orderedValues, boolean alphabetic) {
-        this.fieldNames = new HashMap<>();
+        this.fieldNames = new HashMap();
         this.alphabetic = alphabetic;
 
         init(orderedValues);

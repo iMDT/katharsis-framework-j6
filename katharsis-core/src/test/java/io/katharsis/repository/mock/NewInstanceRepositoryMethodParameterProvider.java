@@ -13,7 +13,9 @@ public class NewInstanceRepositoryMethodParameterProvider implements RepositoryM
 
         try {
             return (T) aClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }

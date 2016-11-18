@@ -18,7 +18,7 @@ public class Project {
     private ProjectData data;
 
     @JsonApiToMany
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList();
 
     @JsonApiToOne
     private Task task;
@@ -29,7 +29,7 @@ public class Project {
 
     @JsonApiToMany
     @JsonApiIncludeByDefault
-    private List<ProjectEager> projectEagerList = new ArrayList<>();
+    private List<ProjectEager> projectEagerList = new ArrayList();
 
     public Long getId() {
         return id;

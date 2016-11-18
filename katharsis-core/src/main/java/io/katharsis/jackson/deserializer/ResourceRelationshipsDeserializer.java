@@ -41,7 +41,7 @@ public class ResourceRelationshipsDeserializer extends JsonDeserializer<Resource
             } else if (field.getValue().get(DATA_FIELD_NAME).isArray()) {
                 JsonNode fieldData = field.getValue().get(DATA_FIELD_NAME);
                 Iterator<JsonNode> nodeIterator = fieldData.iterator();
-                List<LinkageData> linkageDatas = new LinkedList<>();
+                List<LinkageData> linkageDatas = new LinkedList();
 
                 while (nodeIterator.hasNext()) {
                     LinkageData newLinkageData = jp.getCodec().treeToValue(nodeIterator.next(), LinkageData.class);

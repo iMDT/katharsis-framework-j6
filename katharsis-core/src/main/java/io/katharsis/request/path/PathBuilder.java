@@ -128,7 +128,7 @@ public class PathBuilder {
      * @return String representing structure provided in the input
      */
     public static String buildPath(JsonPath jsonPath) {
-        List<String> urlParts = new LinkedList<>();
+        List<String> urlParts = new LinkedList();
 
         JsonPath currentJsonPath = jsonPath;
         String pathPart;

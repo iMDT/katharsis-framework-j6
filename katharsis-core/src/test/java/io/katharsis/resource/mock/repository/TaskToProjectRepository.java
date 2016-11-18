@@ -14,13 +14,13 @@ import java.util.concurrent.ConcurrentMap;
 
 public class TaskToProjectRepository implements RelationshipRepository<Task, Long, Project, Long> {
 
-    private static final ConcurrentMap<Relation<Task>, Integer> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<Relation<Task>, Integer> THREAD_LOCAL_REPOSITORY = new ConcurrentHashMap();
 
     @Override
     public void setRelation(Task source, Long targetId, String fieldName) {
         removeRelations(fieldName);
         if (targetId != null) {
-            THREAD_LOCAL_REPOSITORY.put(new Relation<>(source, targetId, fieldName), 0);
+            THREAD_LOCAL_REPOSITORY.put(new Relation(source, targetId, fieldName), 0);
         }
     }
 
@@ -29,7 +29,7 @@ public class TaskToProjectRepository implements RelationshipRepository<Task, Lon
         removeRelations(fieldName);
         if (targetIds != null) {
             for (Long targetId : targetIds) {
-                THREAD_LOCAL_REPOSITORY.put(new Relation<>(source, targetId, fieldName), 0);
+                THREAD_LOCAL_REPOSITORY.put(new Relation(source, targetId, fieldName), 0);
             }
         }
     }
@@ -37,7 +37,7 @@ public class TaskToProjectRepository implements RelationshipRepository<Task, Lon
     @Override
     public void addRelations(Task source, Iterable<Long> targetIds, String fieldName) {
         for (Long targetId : targetIds) {
-            THREAD_LOCAL_REPOSITORY.put(new Relation<>(source, targetId, fieldName), 0);
+            THREAD_LOCAL_REPOSITORY.put(new Relation(source, targetId, fieldName), 0);
         }
     }
 
@@ -79,7 +79,7 @@ public class TaskToProjectRepository implements RelationshipRepository<Task, Lon
 
     @Override
     public Iterable<Project> findManyTargets(Long sourceId, String fieldName, QueryParams queryParams) {
-        List<Project> projects = new LinkedList<>();
+        List<Project> projects = new LinkedList();
         for (Relation<Task> relation : THREAD_LOCAL_REPOSITORY.keySet()) {
             if (relation.getSource().getId().equals(sourceId) && relation.getFieldName().equals(fieldName)) {
                 Project project = new Project();

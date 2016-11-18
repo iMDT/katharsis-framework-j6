@@ -114,7 +114,10 @@ public class ResourceAttributesBridge<T> {
                 for (Map.Entry<String, Object> property : additionalAttributes.entrySet()) {
                     jsonAnySetter.invoke(instance, property.getKey(), property.getValue());
                 }
-            } catch (IllegalAccessException | InvocationTargetException e) {
+            } catch (IllegalAccessException e) {
+                throw new ResourceException(
+                    String.format("Exception while setting %s: %s", instance.getClass(), e.getMessage()));
+            } catch (InvocationTargetException e) {
                 throw new ResourceException(
                     String.format("Exception while setting %s: %s", instance.getClass(), e.getMessage()));
             }

@@ -26,7 +26,7 @@ public class ClassUtils {
      * @return a list of found fields
      */
     public static List<Field> getClassFields(Class<?> beanClass) {
-        Map<String, Field> result = new HashMap<>();
+        Map<String, Field> result = new HashMap();
 
         Class<?> currentClass = beanClass;
         while (currentClass != null && currentClass != Object.class) {
@@ -41,7 +41,7 @@ public class ClassUtils {
             currentClass = currentClass.getSuperclass();
         }
 
-        return new LinkedList<>(result.values());
+        return new LinkedList(result.values());
     }
 
     /**
@@ -105,7 +105,7 @@ public class ClassUtils {
      * @return a list of found getters
      */
     public static List<Method> getClassGetters(Class<?> beanClass) {
-        Map<String, Method> result = new HashMap<>();
+        Map<String, Method> result = new HashMap();
 
         Class<?> currentClass = beanClass;
         while (currentClass != null && currentClass != Object.class) {
@@ -122,7 +122,7 @@ public class ClassUtils {
             currentClass = currentClass.getSuperclass();
         }
 
-        return new LinkedList<>(result.values());
+        return new LinkedList(result.values());
     }
 
     /**
@@ -134,7 +134,7 @@ public class ClassUtils {
      * @return a list of found getters
      */
     public static List<Method> getClassSetters(Class<?> beanClass) {
-        Map<String, Method> result = new HashMap<>();
+        Map<String, Method> result = new HashMap();
 
         Class<?> currentClass = beanClass;
         while (currentClass != null && currentClass != Object.class) {
@@ -151,7 +151,7 @@ public class ClassUtils {
             currentClass = currentClass.getSuperclass();
         }
 
-        return new LinkedList<>(result.values());
+        return new LinkedList(result.values());
     }
 
     /**
@@ -187,7 +187,9 @@ public class ClassUtils {
     public static <T> T newInstance(Class<T> clazz) {
         try {
             return clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException e) {
+            throw new ResourceException(String.format("couldn't create a new instance of %s", clazz));
+        } catch (IllegalAccessException e) {
             throw new ResourceException(String.format("couldn't create a new instance of %s", clazz));
         }
     }

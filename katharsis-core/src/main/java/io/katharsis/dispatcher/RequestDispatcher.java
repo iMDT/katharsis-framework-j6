@@ -63,7 +63,7 @@ public class RequestDispatcher {
                 return exceptionMapper.get()
                     .toErrorResponse(e);
             } else {
-                throw e;
+                throw new RuntimeException(e);
             }
         }
     }
