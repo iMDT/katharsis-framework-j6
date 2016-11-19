@@ -2,7 +2,6 @@ package io.katharsis.errorhandling.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.nio.file.ClosedFileSystemException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
