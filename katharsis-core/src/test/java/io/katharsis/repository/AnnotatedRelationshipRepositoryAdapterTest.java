@@ -195,21 +195,6 @@ public class AnnotatedRelationshipRepositoryAdapterTest {
         sut.findOneTarget(1L, "project", queryParams);
     }
 
-    @Test
-    public void onClassWithFindOneTargetShouldAddValue() throws Exception {
-        // GIVEN
-        RelationshipRepositoryWithFindOneTargetRelations repo = spy(RelationshipRepositoryWithFindOneTargetRelations.class);
-        AnnotatedRelationshipRepositoryAdapter<Task, Long, Project, Long> sut = new AnnotatedRelationshipRepositoryAdapter(repo, parameterProvider);
-
-        // WHEN
-        Object project = sut.findOneTarget(1L, "project", queryParams);
-
-        // THEN
-        verify(repo).findOneTarget(1L, "project", queryParams, "");
-        assertThat(project).isNotNull();
-        assertThat(((Project)project).getId()).isEqualTo(42L);
-    }
-
     @Test(expected = RepositoryAnnotationNotFoundException.class)
     public void onClassWithoutFindManyTargetShouldThrowException() throws Exception {
         // GIVEN
