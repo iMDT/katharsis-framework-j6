@@ -238,7 +238,7 @@ public class PropertyUtils {
         }
     }
 
-    private static RuntimeException handleReflectionException(Object bean, String field, ReflectiveOperationException e) {
+    private static RuntimeException handleReflectionException(Object bean, String field, Exception e) {
         if (e instanceof InvocationTargetException &&
             ((InvocationTargetException) e).getTargetException() instanceof RuntimeException) {
             return (RuntimeException) ((InvocationTargetException) e).getTargetException();
