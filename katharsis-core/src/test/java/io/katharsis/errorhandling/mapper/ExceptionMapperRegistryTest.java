@@ -49,13 +49,6 @@ public class ExceptionMapperRegistryTest {
         assertThat(mapper.isPresent()).isTrue();
         assertThat(mapper.get()).isExactlyInstanceOf(IllegalStateExceptionMapper.class);
     }
-
-    @Test
-    public void shouldFindDescendantExceptionMapperFromException() throws Exception {
-        Optional<JsonApiExceptionMapper> mapper = exceptionMapperRegistry.findMapperFor(ClosedFileSystemException.class);
-        assertThat(mapper.isPresent()).isTrue();
-        assertThat(mapper.get()).isExactlyInstanceOf(IllegalStateExceptionMapper.class);
-    }
     
     @Test
     public void shouldFindDirectExceptionMapperFromError() throws Exception {
