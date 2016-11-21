@@ -7,13 +7,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.katharsis</groupId>
+    <groupId>br.com.imdt</groupId>
     <artifactId>katharsis-parent</artifactId>
     <version>2.6.0</version>
     <relativePath>../katharsis-parent</relativePath>
   </parent>
 
-  <groupId>io.katharsis</groupId>
+  <groupId>br.com.imdt</groupId>
   <artifactId>katharsis-servlet</artifactId>
   <version>2.6.0</version>
   <packaging>bundle</packaging>
@@ -74,7 +74,7 @@
   <dependencies>
 
     <dependency>
-      <groupId>io.katharsis</groupId>
+      <groupId>br.com.imdt</groupId>
       <artifactId>katharsis-core</artifactId>
       <version>${project.version}</version>
       <exclusions>

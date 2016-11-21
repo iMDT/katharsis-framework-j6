@@ -105,7 +105,7 @@ Add the following dependency:
 
 ```xml
     <dependency>
-      <groupId>io.katharsis</groupId>
+      <groupId>br.com.imdt</groupId>
       <artifactId>katharsis-servlet</artifactId>
       <version>${katharsis-servlet.version}</version>
     </dependency>
