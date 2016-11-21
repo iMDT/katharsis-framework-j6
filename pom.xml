@@ -112,10 +112,7 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
-
-        <pluginManagement>
-            <plugins>
+     
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
@@ -220,10 +217,7 @@
                         </execution>
                     </executions>
                 </plugin>
-            </plugins>
-        </pluginManagement>
 
-        <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
