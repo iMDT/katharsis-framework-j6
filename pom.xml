@@ -230,7 +230,6 @@
                 <module>katharsis-parent</module>
                 <module>katharsis-core</module>
                 <module>katharsis-servlet</module>
-                <module>katharsis-examples</module>
             </modules>
         </profile>
         <profile>
