@@ -229,11 +229,8 @@
             <modules>
                 <module>katharsis-parent</module>
                 <module>katharsis-core</module>
-                <!--<module>katharsis-rs</module>-->
                 <module>katharsis-servlet</module>
-                <!--<module>katharsis-spring</module>-->
-                <!--<module>katharsis-client</module>-->
-                <!--<module>katharsis-examples</module>-->
+                <module>katharsis-examples</module>
             </modules>
         </profile>
         <profile>
