@@ -104,8 +104,8 @@
                 <version>1.5</version>
                 <executions>
                     <execution>
-                        <id>sign-artifacts</id>
-                        <phase>deploy</phase>
+                        <id>sign</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>sign</goal>
                         </goals>
