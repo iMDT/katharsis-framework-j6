@@ -105,15 +105,12 @@
                 <executions>
                     <execution>
                         <id>sign</id>
-                        <phase>install</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
