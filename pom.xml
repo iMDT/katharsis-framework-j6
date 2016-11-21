@@ -223,6 +223,7 @@
                 <module>katharsis-parent</module>
                 <module>katharsis-core</module>
                 <module>katharsis-servlet</module>
+                <module>katharsis-jpa</module>
             </modules>
         </profile>
         <profile>

@@ -18,7 +18,7 @@
   <version>2.6.0</version>
   <packaging>bundle</packaging>
 
-  <name>${project.groupId}:${project.artifactId}</name>
+  <name>katharsis-servlet</name>
   <url>https://github.com/katharsis-project/katharsis-servlet</url>
   <description>Generic Servlet Adapter of Katharsis JSON:API middleware library</description>
   <scm>

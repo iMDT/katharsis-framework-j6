@@ -21,7 +21,7 @@ import io.katharsis.jackson.exception.ParametersDeserializationException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -29,7 +29,7 @@ import java.util.*;
  */
 public class QueryStringUtils {
 
-    private static final String QUERY_CHARSET = StandardCharsets.UTF_8.name();
+    private static final String QUERY_CHARSET = Charset.forName("UTF-8").name();
 
     private QueryStringUtils() {
     }
@@ -51,7 +51,7 @@ public class QueryStringUtils {
             queryParamMap = Collections.emptyMap();
         } else {
             // keep insertion ordered map to maintain the order of the query string when re-constructing it from a map
-            queryParamMap = new LinkedHashMap<>();
+            queryParamMap = new LinkedHashMap();
 
             String[] paramPairs = queryString.split("&");
             String paramName;
@@ -68,7 +68,7 @@ public class QueryStringUtils {
             for (Map.Entry<String, Set<String>> entry : queryParamMap.entrySet()) {
                 String[] queryParameter = invokerContext.getQueryParameterValues(entry.getKey());
                 if (queryParameter != null) {
-                    entry.setValue(new HashSet<>(Arrays.asList(queryParameter)));
+                    entry.setValue(new HashSet(Arrays.asList(queryParameter)));
                 }
             }
         }
@@ -92,7 +92,7 @@ public class QueryStringUtils {
             queryParamMap = Collections.emptyMap();
         } else {
             // keep insertion ordered map to maintain the order of the query string when re-constructing it from a map
-            queryParamMap = new LinkedHashMap<>();
+            queryParamMap = new LinkedHashMap();
 
             String[] paramPairs = queryString.split("&");
             String paramName;
@@ -109,7 +109,7 @@ public class QueryStringUtils {
             }
 
             for (Map.Entry<String, String[]> entry : queryParamMap.entrySet()) {
-                List<String> decodedParameterValueList = new LinkedList<>();
+                List<String> decodedParameterValueList = new LinkedList();
                 for (String parameterValue : invokerContext.getQueryParameterValues(entry.getKey())) {
                     if (parameterValue != null) {
                         decodedParameterValueList.add(parameterValue);
