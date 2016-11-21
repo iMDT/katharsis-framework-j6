@@ -105,7 +105,7 @@
                 <executions>
                     <execution>
                         <id>sign</id>
-                        <phase>validate</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>sign</goal>
                         </goals>
