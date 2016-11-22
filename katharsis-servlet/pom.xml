@@ -9,14 +9,14 @@
   <parent>
     <groupId>br.com.imdt</groupId>
     <artifactId>katharsis-parent</artifactId>
-    <version>2.6.1</version>
+    <version>2.6.2</version>
     <relativePath>../katharsis-parent</relativePath>
   </parent>
 
   <groupId>br.com.imdt</groupId>
   <artifactId>katharsis-servlet</artifactId>
-  <version>2.6.1</version>
-  <packaging>bundle</packaging>
+  <version>2.6.2</version>
+  <packaging>jar</packaging>
 
   <name>katharsis-servlet</name>
   <url>https://github.com/katharsis-project/katharsis-servlet</url>
