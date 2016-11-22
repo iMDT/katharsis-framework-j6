@@ -17,6 +17,7 @@
 package br.com.imdt.os.imdt.katharsis.jpa.information;
 
 import br.com.imdt.os.imdt.katharsis.jpa.KatharsisJpaContextHolder;
+import br.com.imdt.os.imdt.katharsis.jpa.repository.BaseRepository;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.katharsis.queryParams.QueryParams;
 import io.katharsis.queryParams.RestrictedPaginationKeys;
@@ -30,9 +31,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Links implements LinksInformation {
+
+    private static final Logger log = LoggerFactory.getLogger(Links.class);
 
     KatharsisJpaContextHolder context;
 
@@ -92,6 +97,8 @@ public class Links implements LinksInformation {
      * Create links for repository navigation
      */
     public Links(String repositoryName, KatharsisJpaContextHolder context, QueryParams queryParams, Long totalRecords) {
+        this.context = context;
+        
         String qs = getQSForPagination();
 
         String basePath = context.getBaseUrl() + "/" + repositoryName + "/?" + qs;
@@ -152,8 +159,6 @@ public class Links implements LinksInformation {
         } else {
             prev = null;
         }
-
-        this.context = context;
     }
 
     /**
