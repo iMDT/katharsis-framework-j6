@@ -6,7 +6,7 @@ import io.katharsis.utils.parser.TypeParser;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 import java.util.Set;
 
 /**

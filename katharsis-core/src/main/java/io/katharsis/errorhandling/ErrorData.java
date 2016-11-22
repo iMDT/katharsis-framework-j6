@@ -2,7 +2,7 @@ package io.katharsis.errorhandling;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 public final class ErrorData {
 

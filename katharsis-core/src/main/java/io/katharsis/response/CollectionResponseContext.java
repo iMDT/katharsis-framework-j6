@@ -3,7 +3,7 @@ package io.katharsis.response;
 import io.katharsis.queryParams.QueryParams;
 import io.katharsis.request.path.JsonPath;
 
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 /**
  * A class responsible for representing top-level JSON object returned by Katharsis. The data value is an array. The

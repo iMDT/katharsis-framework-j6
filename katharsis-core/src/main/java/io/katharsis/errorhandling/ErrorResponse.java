@@ -5,7 +5,7 @@ import io.katharsis.request.path.JsonPath;
 import io.katharsis.response.BaseResponseContext;
 import io.katharsis.response.JsonApiResponse;
 
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 public final class ErrorResponse implements BaseResponseContext {
 

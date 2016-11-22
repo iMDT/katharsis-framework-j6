@@ -24,7 +24,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 public abstract class ResourceUpsert extends BaseController {
     final ResourceRegistry resourceRegistry;

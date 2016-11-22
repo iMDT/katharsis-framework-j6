@@ -1,6 +1,6 @@
 package io.katharsis.request.path;
 
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 /**
  * Represent a JSON API path sent to the server. Each resource or field defined in the path is represented by one

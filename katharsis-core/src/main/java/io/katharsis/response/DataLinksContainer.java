@@ -4,7 +4,7 @@ import io.katharsis.jackson.serializer.DataLinksContainerSerializer;
 import io.katharsis.queryParams.params.IncludedRelationsParams;
 import io.katharsis.resource.field.ResourceField;
 
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 import java.util.Set;
 
 /**

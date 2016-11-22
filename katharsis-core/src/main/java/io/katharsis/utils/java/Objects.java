@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package java.util;
+package io.katharsis.utils.java;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.Comparator;
 /**
  * Utility methods for objects.
  * @since 1.7

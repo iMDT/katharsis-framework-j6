@@ -1,7 +1,7 @@
 package io.katharsis.resource.field;
 
 import java.lang.reflect.Type;
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 public class ResourceField {
 	

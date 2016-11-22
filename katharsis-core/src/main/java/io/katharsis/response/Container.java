@@ -2,7 +2,7 @@ package io.katharsis.response;
 
 import io.katharsis.jackson.serializer.ContainerSerializer;
 
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 /**
  * A class responsible for representing a single data filed within top-level JSON object returned by Katharsis. The

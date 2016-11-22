@@ -3,7 +3,7 @@ package io.katharsis.response;
 import io.katharsis.jackson.serializer.LinkageContainerSerializer;
 import io.katharsis.resource.registry.RegistryEntry;
 
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 /**
  * A class responsible for storing information about the linkage information. The resulting JSON serialized using

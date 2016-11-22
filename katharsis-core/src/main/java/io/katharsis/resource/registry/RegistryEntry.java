@@ -14,7 +14,7 @@ import io.katharsis.resource.registry.responseRepository.ResourceRepositoryAdapt
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 /**
  * Holds information about a resource of type <i>T</i> and its repositories.

@@ -3,7 +3,7 @@ package io.katharsis.response;
 import io.katharsis.jackson.serializer.RelationshipContainerSerializer;
 import io.katharsis.resource.field.ResourceField;
 
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 /**
  * A class responsible for storing information about a relationship between two resources. The resulting JSON

@@ -1,6 +1,6 @@
 package io.katharsis.errorhandling.mapper;
 
-import java.util.Objects;
+import io.katharsis.utils.java.Objects;
 
 final class ExceptionMapperType {
     private final JsonApiExceptionMapper exceptionMapper;
