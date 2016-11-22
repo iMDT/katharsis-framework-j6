@@ -16,6 +16,7 @@
  */
 package br.com.imdt.os.imdt.katharsis.jpa.dao;
 
+import br.com.imdt.os.imdt.katharsis.jpa.exception.BadRequestException;
 import br.com.imdt.os.imdt.katharsis.jpa.exception.FilterException;
 import br.com.imdt.os.imdt.katharsis.jpa.exception.SortingException;
 import br.com.imdt.os.imdt.katharsis.jpa.helper.ReflectionHelper;
@@ -27,7 +28,10 @@ import io.katharsis.resource.annotations.JsonApiResource;
 import io.katharsis.utils.ClassUtils;
 import io.katharsis.utils.java.Optional;
 import io.katharsis.utils.parser.TypeParser;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +44,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Pattern;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -91,7 +96,7 @@ public class BaseDao<T extends Object, ID extends Serializable> implements IDao<
             fullQuery += " order by " + orderBy;
         }
 
-        log.trace("Query: {}, Params: {}", fullQuery, dbParameters);
+        log.info("Query: {}, Params: {}", fullQuery, dbParameters);
 
         Query q = em.createQuery(fullQuery);
 
@@ -99,10 +104,10 @@ public class BaseDao<T extends Object, ID extends Serializable> implements IDao<
         Map<RestrictedPaginationKeys, Integer> pagination = qp.getPagination();
 
         Integer limit = pagination.get(RestrictedPaginationKeys.limit);
-        if(limit == null) {
+        if (limit == null) {
             limit = 1000;
         }
-        
+
         Integer offset = pagination.get(RestrictedPaginationKeys.offset);
         if (offset == null) {
             offset = 0;
@@ -162,12 +167,42 @@ public class BaseDao<T extends Object, ID extends Serializable> implements IDao<
 
     @Override
     public T save(T obj) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            ID objId = (ID) new PropertyDescriptor(idProperty, type).getReadMethod().invoke(obj);
+
+            if (objId != null) {
+                obj = em.merge(obj);
+            }
+
+            em.persist(obj);
+            objId = (ID) new PropertyDescriptor(idProperty, type).getReadMethod().invoke(obj);
+
+            T savedObj = get(objId);
+            return savedObj;
+        } catch (IntrospectionException e) {
+            log.error("Error saving object: " + e.getMessage(), e);
+            throw new BadRequestException("Error saving object: " + e.getMessage(), e);
+        } catch (IllegalAccessException e) {
+            log.error("Error saving object: " + e.getMessage(), e);
+            throw new BadRequestException("Error saving object: " + e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            log.error("Error saving object: " + e.getMessage(), e);
+            throw new BadRequestException("Error saving object: " + e.getMessage(), e);
+        } catch (InvocationTargetException e) {
+            log.error("Error saving object: " + e.getMessage(), e);
+            throw new BadRequestException("Error saving object: " + e.getMessage(), e);
+        }
     }
 
     @Override
     public void delete(ID id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            T removeObj = get(id);
+            em.remove(removeObj);
+        } catch (PersistenceException e) {
+            log.error("Error removing object: " + e.getMessage(), e);
+            throw new BadRequestException("Error removing object: " + e.getMessage(), e);
+        }
     }
 
     @Override
