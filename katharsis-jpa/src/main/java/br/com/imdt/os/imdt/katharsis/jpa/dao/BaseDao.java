@@ -677,14 +677,15 @@ public class BaseDao<T extends Object, ID extends Serializable> implements IDao<
             String sortField = sortPair.getLeft();
             String sortMode = sortPair.getRight();
 
-            if (!json2JavaProp.containsKey(sortField)) {
-                throw new SortingException("Unrecognized sort field: " + sortField);
-            }
+            //TODO - Validate fields recursively (obj.prop.id asc)
+            //if (!json2JavaProp.containsKey(sortField)) {
+            //  throw new SortingException("Unrecognized sort field: " + sortField);
+            //}
 
             if (orderBy.length() > 0) {
                 orderBy += ",";
             }
-            orderBy += sortField + " " + sortMode;
+            orderBy += "_out_obj_." + sortField + " " + sortMode;
         }
 
         query.setParameters(dbParameters);
