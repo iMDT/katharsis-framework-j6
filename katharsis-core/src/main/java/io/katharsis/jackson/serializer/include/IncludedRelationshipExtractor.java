@@ -3,8 +3,6 @@ package io.katharsis.jackson.serializer.include;
 import io.katharsis.queryParams.include.Inclusion;
 import io.katharsis.queryParams.params.IncludedRelationsParams;
 import io.katharsis.queryParams.params.TypedParams;
-import io.katharsis.request.path.FieldPath;
-import io.katharsis.request.path.ResourcePath;
 import io.katharsis.resource.exception.ResourceFieldNotFoundException;
 import io.katharsis.resource.field.ResourceField;
 import io.katharsis.resource.information.ResourceInformation;
@@ -25,6 +23,7 @@ import java.util.*;
  * Extracts inclusions from a resource.
  */
 public class IncludedRelationshipExtractor {
+
     private static final Logger logger = LoggerFactory.getLogger(IncludedRelationshipExtractor.class);
     private final ResourceRegistry resourceRegistry;
 
@@ -37,25 +36,46 @@ public class IncludedRelationshipExtractor {
 
         populateIncludedByDefaultResources(resource, response, ContainerType.TOP, includedResources, 1);
         try {
-            populateIncludedRelationships(resource, response, includedResources);
-        } catch (IllegalAccessException  e) {
-            logger.info("Exception while extracting included fields", e);
-        } catch (NoSuchMethodException  e) {
-            logger.info("Exception while extracting included fields", e);
+            populateIncludedRelationships(resource, response, includedResources, new HashSet());
+        } catch (IllegalAccessException e) {
+            logger.trace("Exception while extracting included fields", e);
+        } catch (NoSuchMethodException e) {
+            logger.trace("Exception while extracting included fields", e);
         } catch (InvocationTargetException e) {
-            logger.info("Exception while extracting included fields", e);
+            logger.trace("Exception while extracting included fields", e);
         } catch (NoSuchFieldException e) {
-            logger.info("Exception while extracting included fields", e);
+            logger.trace("Exception while extracting included fields", e);
         }
         return includedResources;
     }
 
+    private boolean isFieldIncluded(BaseResponseContext response, String fieldName) {
+        if (response.getQueryParams() == null
+                || response.getQueryParams().getIncludedRelations() == null
+                || response.getQueryParams().getIncludedRelations().getParams() == null) {
+            return false;
+        }
+        IncludedRelationsParams includedRelationsParams = response.getQueryParams().getIncludedRelations().getParams().get(response.getJsonPath().getElementName());
+        if (includedRelationsParams == null
+                || includedRelationsParams.getParams() == null) {
+            return false;
+        }
+
+        for (Inclusion inclusion : includedRelationsParams.getParams()) {
+            if (inclusion.getPathList().get(0).equals(fieldName)) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 
     private void populateIncludedByDefaultResources(Object resource,
-                                                    BaseResponseContext response,
-                                                    ContainerType containerType,
-                                                    Map<ResourceDigest, Container> includedResources,
-                                                    int recurrenceLevel) {
+            BaseResponseContext response,
+            ContainerType containerType,
+            Map<ResourceDigest, Container> includedResources,
+            int recurrenceLevel) {
         int recurrenceLevelCounter = recurrenceLevel;
         if (recurrenceLevel >= 42 || resource == null) {
             return;
@@ -101,33 +121,11 @@ public class IncludedRelationshipExtractor {
         }
     }
 
-    private boolean isFieldIncluded(BaseResponseContext response, String fieldName) {
-        if (response.getQueryParams() == null ||
-                response.getQueryParams().getIncludedRelations() == null ||
-                response.getQueryParams().getIncludedRelations().getParams() == null) {
-            return false;
-        }
-        IncludedRelationsParams includedRelationsParams = response.getQueryParams().getIncludedRelations().getParams().get(response.getJsonPath().getElementName());
-        if (includedRelationsParams == null ||
-                includedRelationsParams.getParams() == null) {
-            return false;
-        }
-
-        for (Inclusion inclusion : includedRelationsParams.getParams()) {
-            if (inclusion.getPathList().get(0).equals(fieldName)) {
-                return true;
-            }
-        }
-
-        return false;
-
-    }
-
     private void populateIncludedByDefaultResourcesRecursive(Object targetDataObj,
-                                                             BaseResponseContext response,
-                                                             ContainerType containerType,
-                                                             Map<ResourceDigest, Container> includedResourceContainers,
-                                                             int recurrenceLevelCounter) {
+            BaseResponseContext response,
+            ContainerType containerType,
+            Map<ResourceDigest, Container> includedResourceContainers,
+            int recurrenceLevelCounter) {
         if (containerType.equals(ContainerType.TOP)) {
             populateIncludedByDefaultResources(targetDataObj, response, ContainerType.INCLUDED_DEFAULT, includedResourceContainers, recurrenceLevelCounter);
         } else if (containerType.equals(ContainerType.INCLUDED_DEFAULT)) {
@@ -137,95 +135,100 @@ public class IncludedRelationshipExtractor {
         }
     }
 
-    private void populateIncludedRelationships(Object resource, BaseResponseContext response, Map<ResourceDigest, Container> includedResources)
+    private Optional<String> getResourceTypeByObject(Object resource) {
+        Optional<Class<?>> optional = resourceRegistry.getResourceClass(resource);
+        if (optional.isPresent()) {
+            String resourceType = resourceRegistry.getResourceType(optional.get());
+            if (resourceType != null) {
+                return Optional.of(resourceType);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private void populateIncludedRelationships(Object resource, BaseResponseContext response, Map<ResourceDigest, Container> includedResources, HashSet<Object> processedResources)
             throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
         if (response.getQueryParams() == null || response.getJsonPath() == null) {
             return;
         }
         TypedParams<IncludedRelationsParams> includedRelations = response.getQueryParams()
                 .getIncludedRelations();
-        String elementName = response.getJsonPath()
-                .getElementName();
 
-        // handle field paths differently because the element name is not its type but field name (#357)
-        if (response.getJsonPath() instanceof FieldPath) {
-            // extract the resource's resource type name
-            Optional<Class<?>> optional = resourceRegistry.getResourceClass(resource);
-            if (optional.isPresent()) {
-                elementName = resourceRegistry.getResourceType(optional.get());
-            }
-        }
-        IncludedRelationsParams includedRelationsParams = findInclusions(includedRelations, elementName);
-        if (includedRelationsParams != null) {
-            for (Inclusion inclusion : includedRelationsParams.getParams()) {
-                //noinspection unchecked
-                populateIncludedRelationship(resource, inclusion, response, includedResources);
-            }
-        }
+        populateIncludedResources(resource, includedRelations, response, includedResources, 1, processedResources);
     }
 
-    private IncludedRelationsParams findInclusions(TypedParams<IncludedRelationsParams> queryParams,
-                                                   String resourceName) {
-        if (queryParams != null && queryParams.getParams() != null) {
-            for (Map.Entry<String, IncludedRelationsParams> entry : queryParams.getParams()
-                    .entrySet()) {
-                if (resourceName.equals(entry.getKey())) {
-                    return entry.getValue();
-                }
-            }
-        }
-        return null;
-    }
-
-    private void populateIncludedRelationship(Object resource, Inclusion inclusion, BaseResponseContext response, Map<ResourceDigest, Container> includedResources)
-            throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
-        List<String> pathList = inclusion.getPathList();
-        if (resource == null || pathList.isEmpty()) {
+    private void populateIncludedResources(Object resource, TypedParams<IncludedRelationsParams> includedRelations, BaseResponseContext response, Map<ResourceDigest, Container> includedResources, Integer recurrenceLevel, HashSet<Object> processedResources) {
+        int recurrenceLevelCounter = recurrenceLevel;
+        if (recurrenceLevel >= 42 || resource == null) {
             return;
         }
-        if (!(response.getJsonPath() instanceof ResourcePath) && !(response.getJsonPath() instanceof FieldPath)) {
-            // the first property name is the resource itself
-            pathList = pathList.subList(1, pathList.size());
-            if (pathList.isEmpty()) {
-                return;
-            }
+
+        Optional<String> resourceType = getResourceTypeByObject(resource);
+
+        if (!resourceType.isPresent()) {
+            return;
         }
-        populateIncludedResources(resource, pathList, response, includedResources);
-    }
 
-    private void populateIncludedResources(Object resource, List<String> pathList, BaseResponseContext response, Map<ResourceDigest, Container> includedResources)
-            throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
+        //Include this resource
+        if (recurrenceLevel > 1) {
+            populateToResourcePropertyToIncludedResources(resource, response, ContainerType.INCLUDED_NESTED, resourceType.get(), includedResources);
+        }
 
+        if (processedResources.contains(resource)) {
+            return;
+        }
 
-        String fieldName = getRelationshipName(pathList.get(0), resource.getClass());
-        Object resourceProperty = PropertyUtils.getProperty(resource, fieldName);
-        if (resourceProperty != null) {
-            populateToResourcePropertyToIncludedResources(resourceProperty, response, ContainerType.INCLUDED, pathList.get(0), includedResources);
-            if (pathList.size() > 1) {
-                if (Iterable.class.isAssignableFrom(resourceProperty.getClass())) {
-                    if (((Iterable) resourceProperty).iterator().hasNext()) {
-                        Iterator resourceProperties = ((Iterable) resourceProperty).iterator();
-                        while (resourceProperties.hasNext()) {
-                            resourceProperty = resourceProperties.next();
-                            fieldName = getRelationshipName(pathList.get(1), resourceProperty.getClass());
-                            resourceProperty = PropertyUtils.getProperty(resourceProperty, fieldName);
-                            populateToResourcePropertyToIncludedResources(resourceProperty, response, ContainerType.INCLUDED_NESTED, pathList.get(1), includedResources);
-                        }
+        processedResources.add(resource);
+
+        recurrenceLevelCounter++;
+
+        //Check if this resource type have included properties
+        if (includedRelations.getParams().keySet().contains(resourceType.get())) {
+            Set<Inclusion> thisTypeIncludedRelations = includedRelations.getParams().get(resourceType.get()).getParams();
+
+            Set<ResourceField> relationshipFields = getRelationshipFields(resource);
+
+            logger.trace("relationshipFields: {} ", relationshipFields);
+            for (ResourceField resourceField : relationshipFields) {
+                boolean included = false;
+                for (Inclusion inclusion : thisTypeIncludedRelations) {
+                    if (inclusion.getPath().equals(resourceField.getJsonName())) {
+                        included = true;
                     }
-                } else {
-                    fieldName = getRelationshipName(pathList.get(1), resourceProperty.getClass());
-                    resourceProperty = PropertyUtils.getProperty(resourceProperty, fieldName);
-                    populateToResourcePropertyToIncludedResources(resourceProperty, response, ContainerType.INCLUDED_NESTED, pathList.get(1), includedResources);
                 }
 
+                if (!included) {
+                    logger.trace("Field  " + resourceField.getJsonName() + " of resource type " + resourceType.get() + " not included");
+                    continue;
+                }
+
+                logger.trace("relationshipFields: [underlyingName]= {} ", resourceField.getUnderlyingName());
+                logger.trace("relationshipFields: [getJsonName]= {} ", resourceField.getJsonName());
+                Object targetDataObj = PropertyUtils.getProperty(resource, resourceField.getUnderlyingName());
+                if (targetDataObj == null) {
+                    logger.trace("Returning due to null");
+                    continue;
+                }
+
+                if (targetDataObj instanceof Iterable) {
+                    for (Object objectItem : (Iterable) targetDataObj) {
+                        //Recursion
+                        populateIncludedResources(objectItem, includedRelations, response, includedResources, recurrenceLevelCounter, processedResources);
+                    }
+                } else {
+                    //Recursion
+                    populateIncludedResources(targetDataObj, includedRelations, response, includedResources, recurrenceLevelCounter, processedResources);
+                }
             }
+        } else {
+            logger.trace("Resource type " + resourceType.get() + " does not specify included fields");
         }
-
     }
-
+    
     private void populateToResourcePropertyToIncludedResources(Object resourceProperty, BaseResponseContext response, ContainerType containerType, String includedFieldName, Map<ResourceDigest, Container> includedResources) {
         if (resourceProperty != null) {
-            if (Iterable.class.isAssignableFrom(resourceProperty.getClass())) {
+            if (Iterable.class
+                    .isAssignableFrom(resourceProperty.getClass())) {
                 for (Object resourceToInclude : (Iterable) resourceProperty) {
                     ResourceDigest digest = getResourceDigest(resourceToInclude);
                     includedResources.put(digest, new Container(resourceToInclude, response, containerType, includedFieldName));
@@ -235,15 +238,6 @@ public class IncludedRelationshipExtractor {
                 includedResources.put(digest, new Container(resourceProperty, response, containerType, includedFieldName));
             }
         }
-    }
-
-    private <T> String getRelationshipName(String jsonName, Class<T> resourceClazz) {
-        RegistryEntry resourceEntry = resourceRegistry.getEntry(resourceClazz);
-        ResourceField relationshipField = resourceEntry.getResourceInformation().findRelationshipFieldByName(jsonName);
-        if (relationshipField == null) {
-            throw new ResourceFieldNotFoundException(String.format("%s for %s has been not found", jsonName, resourceClazz));
-        }
-        return relationshipField.getUnderlyingName();
     }
 
     private Set<ResourceField> getRelationshipFields(Object resource) {

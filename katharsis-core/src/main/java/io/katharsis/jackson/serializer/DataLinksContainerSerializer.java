@@ -14,10 +14,11 @@ import io.katharsis.response.RelationshipContainer;
 import java.io.IOException;
 
 /**
- * Serializes a <i>links</i> field of a resource in data field of JSON API response.
- * Additionally, it solves a problem
- * mentioned in <a href="https://github.com/katharsis-project/katharsis-core/issues/220#issuecomment-188790551">#220</a>
- * where an included relationship should forced inclusion of relationship details.
+ * Serializes a <i>links</i> field of a resource in data field of JSON API
+ * response. Additionally, it solves a problem mentioned in
+ * <a href="https://github.com/katharsis-project/katharsis-core/issues/220#issuecomment-188790551">#220</a>
+ * where an included relationship should forced inclusion of relationship
+ * details.
  *
  * @see DataLinksContainer
  */
@@ -32,8 +33,8 @@ public class DataLinksContainerSerializer extends JsonSerializer<DataLinksContai
 
         for (ResourceField field : dataLinksContainer.getRelationshipFields()) {
             boolean forceInclusion = shouldForceFieldInclusion(dataLinksContainer, field, dataLinksContainer.getIncludedRelations());
-            RelationshipContainer relationshipContainer =
-                    new RelationshipContainer(dataLinksContainer, field, forceInclusion);
+            RelationshipContainer relationshipContainer
+                    = new RelationshipContainer(dataLinksContainer, field, forceInclusion);
 
             gen.writeObjectField(field.getJsonName(), relationshipContainer);
         }
@@ -42,14 +43,19 @@ public class DataLinksContainerSerializer extends JsonSerializer<DataLinksContai
     }
 
     private boolean shouldForceFieldInclusion(DataLinksContainer dataLinksContainer, ResourceField field, IncludedRelationsParams includedRelations) {
+        if (field.getIncludeByDefault() == true) {
+            return true;
+        }
+
         if (includedRelations != null) {
             for (Inclusion inclusion : includedRelations.getParams()) {
                 if (field.getJsonName().equals(inclusion.getPathList().get(0))
                         && dataLinksContainer.getContainerType().equals(ContainerType.TOP)) {
                     return true;
-                } else if (dataLinksContainer.getContainerType().equals(ContainerType.INCLUDED)
-                        && inclusion.getPathList().size() > 1
-                        && field.getJsonName().equals(inclusion.getPathList().get(1))) {
+                } else if ((dataLinksContainer.getContainerType().equals(ContainerType.INCLUDED)
+                        || dataLinksContainer.getContainerType().equals(ContainerType.INCLUDED_NESTED))
+                        && inclusion.getPathList().size() == 1
+                        && field.getJsonName().equals(inclusion.getPathList().get(0))) {
                     return true;
                 }
             }
