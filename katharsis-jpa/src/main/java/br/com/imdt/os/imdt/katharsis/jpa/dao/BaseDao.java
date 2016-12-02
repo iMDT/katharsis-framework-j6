@@ -627,7 +627,7 @@ public class BaseDao<T extends Object, ID extends Serializable> implements IDao<
                             Iterable filterValueAsExpectedType = null;
                             
                             if(effectiveType.isAssignableFrom(Date.class)) {
-                                SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+                                SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                                 
                                 filterValueAsExpectedType = new HashSet();
                                 for(String item : filterValueAsString) {
