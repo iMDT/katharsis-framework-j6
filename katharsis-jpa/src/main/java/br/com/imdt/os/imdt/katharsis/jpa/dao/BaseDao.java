@@ -632,7 +632,7 @@ public class BaseDao<T extends Object, ID extends Serializable> implements IDao<
                                 filterValueAsExpectedType = new HashSet();
                                 for(String item : filterValueAsString) {
                                     Date dt = sdt.parse(item);
-                                    ((List)filterValueAsExpectedType).add(dt);
+                                    ((Set)filterValueAsExpectedType).add(dt);
                                 }
                             } else {
                                 filterValueAsExpectedType = typeParser.parse(filterValueAsString, effectiveType);
