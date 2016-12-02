@@ -33,9 +33,11 @@ import java.beans.PropertyDescriptor;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -620,7 +622,23 @@ public class BaseDao<T extends Object, ID extends Serializable> implements IDao<
                         if (!haveRightSide) {
                             thisLevelGeneratedFilterQuery += leftSide + comparator;
                         } else {
-                            Iterable filterValueAsExpectedType = typeParser.parse(filterValueAsString, (leftSideGenericType != null) ? leftSideGenericType : leftSideType);
+                            Class effectiveType = (leftSideGenericType != null) ? leftSideGenericType : leftSideType;
+                            
+                            Iterable filterValueAsExpectedType = null;
+                            
+                            if(effectiveType.isAssignableFrom(Date.class)) {
+                                SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+                                
+                                filterValueAsExpectedType = new HashSet();
+                                for(String item : filterValueAsString) {
+                                    Date dt = sdt.parse(item);
+                                    ((List)filterValueAsExpectedType).add(dt);
+                                }
+                            } else {
+                                filterValueAsExpectedType = typeParser.parse(filterValueAsString, effectiveType);
+                            }
+                             
+                            
 
                             if (Iterable.class.isAssignableFrom(leftSideType)) {
                                 thisLevelGeneratedFilterQuery += ":" + paramName + " in elements(" + leftSide + ") ";

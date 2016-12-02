@@ -9,7 +9,7 @@
     </parent>
     <groupId>br.com.imdt</groupId>
     <artifactId>katharsis-jpa</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <packaging>jar</packaging>
     <name>katharsis-jpa</name>
     
